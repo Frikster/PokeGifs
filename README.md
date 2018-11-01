@@ -53,18 +53,18 @@ This app will consist of a single screen with the battlefield canvas, pause cont
 # Implementation Timeline
 
 ## Day 1: 
-- [ ] Port over the relevant pieces of my Asteroids project
-- [ ] Finalize Game Proposal
+- [x] Port over the relevant pieces of my Asteroids project
+- [x] Finalize Game Proposal
 
 ## Day 2:
-- [ ] Setup all necessary Node modules, including getting webpack up and running. Create webpack.config.js as well as package.json. Write a basic entry file, ticker and the bare bones of all 4 scripts outlined above.
-- [ ] Make a pokemon click-commandable 
+- [x] Setup all necessary Node modules, including getting webpack up and running. Create webpack.config.js as well as package.json. Write a basic entry file, ticker and the bare bones of all 4 scripts outlined above.
+- [x] Make a pokemon click-commandable 
 - [ ] Add an enemy pokemon to the board randomly that moves up against the player's pokemon enters its zone of control and does not chase the user's pokemon if the player leaves the enemy's zone of control
-- [ ] Get webpack serving files and frame out index.html
+- [x] Get webpack serving files and frame out index.html
 
 
 ## Day 3: 
-- [ ] Make a group of pokemon drag-commandable
+- [x] Make a group of pokemon drag-commandable
 - [ ] Populate Board randomly (and reasonably) with enemy pokemon
 - [ ] Add pokemon information bar when selecting a single pokemon
 - [ ] Add healthbar above pokemon that only appears during combat
