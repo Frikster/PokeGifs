@@ -28,11 +28,22 @@
     <br>
     <br>
     <br>
-    <img id="example1" src="./example_gifs/rub_test_preview.jpg" rel:animated_src="./example_gifs/rub_test.gif" rel:auto_play="0" width="467" height="375" />
+    <img id="charmander" src="https://sprites.pokecheck.org/i/004.gif" rel:animated_src="https://sprites.pokecheck.org/i/004.gif" />
+    <!-- <img id="charmeleon" src="https://sprites.pokecheck.org/i/005.gif" rel:animated_src="https://sprites.pokecheck.org/i/005.gif" />
+    <img id="charizard" src="https://sprites.pokecheck.org/i/006.gif" rel:animated_src="https://sprites.pokecheck.org/i/006.gif" /> -->
     <!-- <img id="char" src="https://sprites.pokecheck.org/i/006.gif" rel:animated_src="https://sprites.pokecheck.org/i/006.gif" /> -->
     <script type="text/javascript">
-      let sup1 = new SuperGif({ gif: document.getElementById('example1') } );
-      sup1.load();
+      let charmander = new SuperGif({ gif: document.getElementById('charmander'), auto_play: false } );
+      // let charmeleon = new SuperGif({ gif: document.getElementById('charmeleon'), auto_play: false });
+      // let charizard = new SuperGif({ gif: document.getElementById('charizard'), auto_play: false });
+      
+
+      play = () => {
+        charmander.play();
+      } 
+      charmander.load(res => play(res));
+      // charmeleon.load(res => play(res));
+      // charizard.load(res => play(res));
     </script>
 
     <script type="application/javascript" src="vendor/keymaster.js"></script>
