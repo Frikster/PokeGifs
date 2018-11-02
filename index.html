@@ -33,12 +33,15 @@
     <img id="charizard" src="https://sprites.pokecheck.org/i/006.gif" rel:animated_src="https://sprites.pokecheck.org/i/006.gif" /> -->
     <!-- <img id="char" src="https://sprites.pokecheck.org/i/006.gif" rel:animated_src="https://sprites.pokecheck.org/i/006.gif" /> -->
     <script type="text/javascript">
-      let charmander = new SuperGif({ gif: document.getElementById('charmander'), auto_play: false } );
+      // debugger
+      let charmander = new SuperGif({ gif: document.getElementById('charmander'), auto_play: false, vp_t: 0, vp_l: 0 } );
       // let charmeleon = new SuperGif({ gif: document.getElementById('charmeleon'), auto_play: false });
       // let charizard = new SuperGif({ gif: document.getElementById('charizard'), auto_play: false });
       
+  		// c_w, c_h - width and height of canvas
+      // vp_t, vp_l, vp_ w, vp_h - top, left, width and height of the viewport
 
-      play = () => {
+      play = (res) => {
         charmander.play();
       } 
       charmander.load(res => play(res));
