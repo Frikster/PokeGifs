@@ -204,6 +204,8 @@
 
         // LZW (GIF-specific)
         var parseCT = function (entries) { // Each entry is 3 bytes, for RGB.
+            // debugger
+            console.log("parseCT");
             var ct = [];
             for (var i = 0; i < entries; i++) {
                 ct.push(st.readBytes(3));
@@ -212,6 +214,8 @@
         };
 
         var readSubBlocks = function () {
+            // debugger
+            console.log("readSubBlocks");
             var size, data;
             data = '';
             do {
@@ -222,13 +226,13 @@
         };
 
         var parseHeader = function () {
+            // debugger
             var hdr = {};
             hdr.sig = st.read(3);
             hdr.ver = st.read(3);
             if (hdr.sig !== 'GIF') throw new Error('Not a GIF file.'); // XXX: This should probably be handled more nicely.
-            hdr.width = st.readUnsigned();
+            hdr.width = st.readUnsigned(); //Width and height of gif if other params left default
             hdr.height = st.readUnsigned();
-
             var bits = byteToBitArr(st.readByte());
             hdr.gctFlag = bits.shift();
             hdr.colorRes = bitsToNum(bits.splice(0, 3));
@@ -245,6 +249,8 @@
 
         var parseExt = function (block) {
             var parseGCExt = function (block) {
+                // debugger
+                console.log('parseGCExt');
                 var blockSize = st.readByte(); // Always 4
                 var bits = byteToBitArr(st.readByte());
                 block.reserved = bits.splice(0, 3); // Reserved; should be 000.
@@ -262,12 +268,16 @@
             };
 
             var parseComExt = function (block) {
+                console.log("parseComExt");
+
                 block.comment = readSubBlocks();
                 handler.com && handler.com(block);
             };
 
             var parsePTExt = function (block) {
                 // No one *ever* uses this. If you use it, deal with parsing it yourself.
+                console.log("parsePTExt");
+
                 var blockSize = st.readByte(); // Always 12
                 block.ptHeader = st.readBytes(12);
                 block.ptData = readSubBlocks();
@@ -276,6 +286,8 @@
 
             var parseAppExt = function (block) {
                 var parseNetscapeExt = function (block) {
+                    console.log("parseNetscapeExt");
+
                     var blockSize = st.readByte(); // Always 3
                     block.unknown = st.readByte(); // ??? Always 1? What is this?
                     block.iterations = st.readUnsigned();
@@ -284,6 +296,8 @@
                 };
 
                 var parseUnknownAppExt = function (block) {
+                    console.log("parseUnknownAppExt");
+
                     block.appData = readSubBlocks();
                     // FIXME: This won't work if a handler wants to match on any identifier.
                     handler.app && handler.app[block.identifier] && handler.app[block.identifier](block);
@@ -303,6 +317,8 @@
             };
 
             var parseUnknownExt = function (block) {
+                console.log("parseUnknownExt");
+
                 block.data = readSubBlocks();
                 handler.unknown && handler.unknown(block);
             };
@@ -334,6 +350,7 @@
 
         var parseImg = function (img) {
             var deinterlace = function (pixels, width) {
+                console.log("deinterlace");
                 // Of course this defeats the purpose of interlacing. And it's *probably*
                 // the least efficient way it's ever been implemented. But nevertheless...
                 var newPixels = new Array(pixels.length);
@@ -591,6 +608,7 @@
         };
 
         var doGCE = function (gce) {
+            console.log('doGCE')
             pushFrame();
             clear();
             transparency = gce.transparencyGiven ? gce.transparencyIndex : null;
@@ -917,6 +935,7 @@
             move_to: player.move_to,
 
             // getters for instance vars
+            handler : function() { return handler },
             get_playing      : function() { return playing },
             get_canvas       : function() { return canvas },
             get_canvas_scale : function() { return get_canvas_scale() },
@@ -937,7 +956,7 @@
 
                 // old browsers (XMLHttpRequest-compliant)
                 else if ('responseType' in h) {
-                    // debugger
+                    // // debugger
                     h.responseType = 'arraybuffer';
                 }
 
@@ -956,14 +975,14 @@
                     }
                     // emulating response field for IE9
                     if (!('response' in this)) {
-                        // debugger
+                        // // debugger
                         this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
                     }
                     var data = this.response;
                     if (data.toString().indexOf("ArrayBuffer") > 0) {
                         data = new Uint8Array(data);
                     }
-                    // debugger
+                    // // debugger
                     stream = new Stream(data);
                     setTimeout(doParse, 0);
                 };
@@ -979,11 +998,12 @@
             load_raw: function(arr, callback) {
                 if (!load_setup(callback)) return;
                 if (!initialized) init();
-                debugger
+                // debugger
                 stream = new Stream(arr);
                 setTimeout(doParse, 0);
             },
-            set_frame_offset: setFrameOffset
+            set_frame_offset: setFrameOffset,
+            set_sizes: setSizes
         };
     };
 
