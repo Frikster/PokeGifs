@@ -205,7 +205,7 @@
         // LZW (GIF-specific)
         var parseCT = function (entries) { // Each entry is 3 bytes, for RGB.
             // debugger
-            console.log("parseCT");
+            // console.log("parseCT");
             var ct = [];
             for (var i = 0; i < entries; i++) {
                 ct.push(st.readBytes(3));
@@ -215,7 +215,7 @@
 
         var readSubBlocks = function () {
             // debugger
-            console.log("readSubBlocks");
+            // console.log("readSubBlocks");
             var size, data;
             data = '';
             do {
@@ -250,7 +250,7 @@
         var parseExt = function (block) {
             var parseGCExt = function (block) {
                 // debugger
-                console.log('parseGCExt');
+                // console.log('parseGCExt');
                 var blockSize = st.readByte(); // Always 4
                 var bits = byteToBitArr(st.readByte());
                 block.reserved = bits.splice(0, 3); // Reserved; should be 000.
@@ -268,7 +268,7 @@
             };
 
             var parseComExt = function (block) {
-                console.log("parseComExt");
+                // console.log("parseComExt");
 
                 block.comment = readSubBlocks();
                 handler.com && handler.com(block);
@@ -276,7 +276,7 @@
 
             var parsePTExt = function (block) {
                 // No one *ever* uses this. If you use it, deal with parsing it yourself.
-                console.log("parsePTExt");
+                // console.log("parsePTExt");
 
                 var blockSize = st.readByte(); // Always 12
                 block.ptHeader = st.readBytes(12);
@@ -286,7 +286,7 @@
 
             var parseAppExt = function (block) {
                 var parseNetscapeExt = function (block) {
-                    console.log("parseNetscapeExt");
+                    // console.log("parseNetscapeExt");
 
                     var blockSize = st.readByte(); // Always 3
                     block.unknown = st.readByte(); // ??? Always 1? What is this?
@@ -296,7 +296,7 @@
                 };
 
                 var parseUnknownAppExt = function (block) {
-                    console.log("parseUnknownAppExt");
+                    // console.log("parseUnknownAppExt");
 
                     block.appData = readSubBlocks();
                     // FIXME: This won't work if a handler wants to match on any identifier.
@@ -317,7 +317,7 @@
             };
 
             var parseUnknownExt = function (block) {
-                console.log("parseUnknownExt");
+                // console.log("parseUnknownExt");
 
                 block.data = readSubBlocks();
                 handler.unknown && handler.unknown(block);
@@ -350,7 +350,7 @@
 
         var parseImg = function (img) {
             var deinterlace = function (pixels, width) {
-                console.log("deinterlace");
+                // console.log("deinterlace");
                 // Of course this defeats the purpose of interlacing. And it's *probably*
                 // the least efficient way it's ever been implemented. But nevertheless...
                 var newPixels = new Array(pixels.length);
@@ -608,7 +608,7 @@
         };
 
         var doGCE = function (gce) {
-            console.log('doGCE')
+            // console.log('doGCE')
             pushFrame();
             clear();
             transparency = gce.transparencyGiven ? gce.transparencyIndex : null;
@@ -1003,7 +1003,7 @@
                 setTimeout(doParse, 0);
             },
             set_frame_offset: setFrameOffset,
-            set_sizes: setSizes
+            set_sizes: setSizes,
         };
     };
 

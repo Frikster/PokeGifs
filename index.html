@@ -28,7 +28,7 @@
     <br>
     <br>
     <br>
-    <div id='x'>
+    <div id='spritesheets'>
 
     </div>
     <!-- <img id="charmander" src="https://sprites.pokecheck.org/i/004.gif" rel:animated_src="https://sprites.pokecheck.org/i/004.gif" /> -->
@@ -42,6 +42,8 @@
       // image.src = "https://sprites.pokecheck.org/i/004.gif";
 
       // // let charmander = new SuperGif({ gif: image, auto_play: false } );
+     
+     
       let char = new SuperGif({ gif: document.getElementById('char'), auto_play: false });
       const play = (res) => {
         char.play();
@@ -49,9 +51,33 @@
           let offset = {x: 0, y: i * 62};
           char.set_frame_offset(i, offset);
         }
-        char.set_sizes(53, char.get_length()*62)
-      } 
-      char.load(play);
+        char.set_sizes(53, char.get_length()*62);
+        let dataURL = char.get_canvas().toDataURL();
+      }
+      // char.load(play);
+
+
+      
+        // let dataURL = char.get_canvas().toDataURL("image/png").replace("image/png", "image/octet-stream");
+        
+        // Opens download file window...
+        // window.location.href = dataURL;
+        
+        
+        // // set canvasImg image src to dataURL
+        // // so it can be saved as an image
+        // document.getElementById('canvasImg').src = dataURL;
+        // $.ajax({
+        //   type: "POST",
+        //   url: "http://localhost/test.php",
+        //   data: {
+        //     imgBase64: dataURL
+        //   }
+        // }).done(function (response) {
+        //   console.log('saved: ' + response);
+        // });
+      
+      // char.load(play);
 
       // let gif = document.getElementById('charmander');
       // let callback = () => {console.log("WhatUp")};
