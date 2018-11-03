@@ -937,6 +937,7 @@
 
                 // old browsers (XMLHttpRequest-compliant)
                 else if ('responseType' in h) {
+                    // debugger
                     h.responseType = 'arraybuffer';
                 }
 
@@ -955,13 +956,14 @@
                     }
                     // emulating response field for IE9
                     if (!('response' in this)) {
+                        // debugger
                         this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
                     }
                     var data = this.response;
                     if (data.toString().indexOf("ArrayBuffer") > 0) {
                         data = new Uint8Array(data);
                     }
-
+                    // debugger
                     stream = new Stream(data);
                     setTimeout(doParse, 0);
                 };
@@ -977,6 +979,7 @@
             load_raw: function(arr, callback) {
                 if (!load_setup(callback)) return;
                 if (!initialized) init();
+                debugger
                 stream = new Stream(arr);
                 setTimeout(doParse, 0);
             },

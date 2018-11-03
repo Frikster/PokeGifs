@@ -19,7 +19,6 @@
     <br>
     <br>
     <br>
-        <br>
     <br>
     <br>
     <br>
@@ -28,23 +27,54 @@
     <br>
     <br>
     <br>
-    <img id="charmander" src="https://sprites.pokecheck.org/i/004.gif" rel:animated_src="https://sprites.pokecheck.org/i/004.gif" />
+    <br>
+    <div id='x'>
+
+    </div>
+    <!-- <img id="charmander" src="https://sprites.pokecheck.org/i/004.gif" rel:animated_src="https://sprites.pokecheck.org/i/004.gif" /> -->
     <!-- <img id="charmeleon" src="https://sprites.pokecheck.org/i/005.gif" rel:animated_src="https://sprites.pokecheck.org/i/005.gif" />
     <img id="charizard" src="https://sprites.pokecheck.org/i/006.gif" rel:animated_src="https://sprites.pokecheck.org/i/006.gif" /> -->
     <!-- <img id="char" src="https://sprites.pokecheck.org/i/006.gif" rel:animated_src="https://sprites.pokecheck.org/i/006.gif" /> -->
     <script type="text/javascript">
       // debugger
-      let charmander = new SuperGif({ gif: document.getElementById('charmander'), auto_play: false, vp_t: 0, vp_l: 0 } );
-      // let charmeleon = new SuperGif({ gif: document.getElementById('charmeleon'), auto_play: false });
-      // let charizard = new SuperGif({ gif: document.getElementById('charizard'), auto_play: false });
-      
-  		// c_w, c_h - width and height of canvas
-      // vp_t, vp_l, vp_ w, vp_h - top, left, width and height of the viewport
+      // let image = new Image();
+      // image.setAttribute('rel:animated_src' , "https://sprites.pokecheck.org/i/004.gif")
+      // image.src = "https://sprites.pokecheck.org/i/004.gif";
 
-      play = (res) => {
-        charmander.play();
-      } 
-      charmander.load(res => play(res));
+      // // let charmander = new SuperGif({ gif: image, auto_play: false } );
+      // let charmander = new SuperGif({ gif: document.getElementById('charmander'), auto_play: false });
+      
+
+      // let gif = document.getElementById('charmander');
+      // let callback = () => {console.log("WhatUp")};
+      // let src = gif.getAttribute('rel:animated_src')
+      // // charmander.load_url(src, callback)
+
+      // // var h = new XMLHttpRequest();
+      // // h.open('GET', src, true);
+      // // h.onload = function (e) {
+      // //   let data = this.response;
+      // //   this.response
+
+
+      // //   debugger
+      // // }
+      // // h.send();
+      // // debugger
+
+      // // // let charmeleon = new SuperGif({ gif: document.getElementById('charmeleon'), auto_play: false });
+      // // // let charizard = new SuperGif({ gif: document.getElementById('charizard'), auto_play: false });
+      
+  		// // // c_w, c_h - width and height of canvas
+      // // // vp_t, vp_l, vp_ w, vp_h - top, left, width and height of the viewport
+
+      // const play = (res) => {
+      //   charmander.play();
+      //   debugger
+      // } 
+
+      // charmander.load(play);
+
       // charmeleon.load(res => play(res));
       // charizard.load(res => play(res));
     </script>
