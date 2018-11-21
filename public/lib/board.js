@@ -202,6 +202,21 @@ class Board {
   }
 
   createPokemonFromSidebarPokemon(droppedPoke){
+    // let id = droppedPoke.imgId;
+    // axios.get(`/sprites/${id}`)
+    //   .then((response) => {
+    //     console.log(response);
+    //     debugger;
+    //     let newPoke = new PlayerPokemon({
+    //       pos: droppedPoke.pos,
+    //       imgSrc: response.imgSrc,
+    //       imgId: droppedPoke.imgId
+    //     });
+    //     this.playerPokemon.push(newPoke);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
     let newPoke = new PlayerPokemon({
       pos: droppedPoke.pos,
       imgSrc: `https://sprites.pokecheck.org/i/${droppedPoke.imgId}.gif`,
@@ -209,7 +224,6 @@ class Board {
     });
     // debugger
     this.playerPokemon.push(newPoke);
-    // setTimeout(() => this.playerPokemon.push(newPoke), 10000)
     
   }
 

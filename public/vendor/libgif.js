@@ -949,7 +949,7 @@
                 var h = new XMLHttpRequest();
                 // new browsers (XMLHttpRequest2-compliant)
                 h.open('GET', src, true);
-
+                debugger
                 if ('overrideMimeType' in h) {
                     h.overrideMimeType('text/plain; charset=x-user-defined');
                 }
@@ -993,7 +993,7 @@
                 h.send();
             },
             load: function (callback) {
-                this.load_url(gif.getAttribute('rel:animated_src') || gif.src,callback);
+                this.load_url(gif.getAttribute('rel:animated_src') || gif.src, callback);
             },
             load_raw: function(arr, callback) {
                 if (!load_setup(callback)) return;

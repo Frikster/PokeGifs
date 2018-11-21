@@ -1,0 +1,35 @@
+{
+  "name": "js_project",
+  "version": "1.0.0",
+  "description": "PokeRoyale",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "express": "^4.16.4",
+    "gif-frames": "^1.0.0",
+    "node-fetch": "^2.3.0",
+    "path": "^0.12.7",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "webpack --watch --mode=development",
+    "start": "node app.js",
+    "debug": "node --inspect app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frikster/JS_Project.git"
+  },
+  "author": "Dirk Haupt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Frikster/JS_Project/issues"
+  },
+  "homepage": "https://github.com/Frikster/JS_Project#readme"
+}

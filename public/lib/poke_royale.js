@@ -25,6 +25,7 @@ import Board from "./board";
 import * as UI from "./ui"
 
 document.addEventListener("DOMContentLoaded", () => {
+
   const canvasEl = document.getElementsByTagName("canvas")[0];
   canvasEl.width = 5000;
   canvasEl.height = 5000;

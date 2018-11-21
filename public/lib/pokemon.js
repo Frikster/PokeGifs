@@ -1,5 +1,6 @@
 const Stream = require("../vendor/stream");
 const Util = require("./util");
+const axios = require("axios");
 
 class Pokemon {
   constructor(options) {
@@ -20,11 +21,23 @@ class Pokemon {
       let div = document.getElementById("spritesheets");
       div.appendChild(img);
 
+      let spriteUrl = encodeURIComponent(this.imgSrc);
+      axios.get(`/sprites/${spriteUrl}`)
+        .then((response) => {
+          debugger
+          console.log(response);
+        })
+        .catch(function (error) {
+          debugger
+          console.log(error);
+        });
+      debugger
       let superGif = new SuperGif({
         gif: document.getElementById(this.imgId),
         auto_play: false
       });
       const play = (res) => {
+        debugger
         superGif.play();
         for (let i = 1; i < superGif.get_length(); i++) {
           let offset = { x: 0, y: i * superGif.get_canvas().height };
@@ -38,6 +51,7 @@ class Pokemon {
         this.width = this.spritesheetCanvas.width;
         this.radius = this.width > this.height ? this.width / 2 : this.height / 2;
       }
+      debugger
       superGif.load(play);
     }
     this.currentFrame = 0;   
