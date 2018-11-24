@@ -12,18 +12,24 @@ app.get('/', (request, res) => {
 
 // create route to get single book by its isbn
 app.get('/sprites/:spriteUrl', (request, response) => {
-    debugger
     // make api call using fetch
+    debugger
+  // string vlsOrigin = Request.Headers["ORIGIN"];
+  // Response.AddHeader("Access-Control-Allow-Origin", vlsOrigin);
+  // Response.AddHeader("Access-Control-Allow-Methods", "POST");
+  // Response.AddHeader("Access-Control-Allow-Headers", "accept, content-type");
+  
+
     fetch(`${decodeURIComponent(request.params.spriteUrl)}`) //This seems... unsafe
       .then(response => {
-        debugger;
-        return response.text();
+        // debugger;
+        return response;
       })
       .then(body => {
-        debugger;
+        // debugger;
         // let results = JSON.parse(body)
-        console.log(results); // logs to server
-        response.send(results); // sends to frontend
+        // console.log(results); // logs to server
+        response.send(); // sends to frontend
       });
 });
 

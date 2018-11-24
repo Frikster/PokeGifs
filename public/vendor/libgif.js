@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 /*
 	SuperGif
 
@@ -437,6 +439,7 @@
     };
 
     var SuperGif = function ( opts ) {
+        // const axios = require("axios");
         var options = {
             //viewport position
             vp_l: 0,
@@ -947,10 +950,11 @@
                 if (!load_setup(callback)) return;
 
                 var h = new XMLHttpRequest();
+
                 // new browsers (XMLHttpRequest2-compliant)
                 h.open('GET', src, true);
-                debugger
                 if ('overrideMimeType' in h) {
+                    // This is triggered as your browser is new
                     h.overrideMimeType('text/plain; charset=x-user-defined');
                 }
 
@@ -982,7 +986,7 @@
                     if (data.toString().indexOf("ArrayBuffer") > 0) {
                         data = new Uint8Array(data);
                     }
-                    // // debugger
+                    debugger
                     stream = new Stream(data);
                     setTimeout(doParse, 0);
                 };
@@ -990,7 +994,66 @@
                     if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
                 };
                 h.onerror = function() { doLoadError('xhr'); };
-                h.send();
+                // h.send(); //TODO: Remove all code using XMLHttpRequest once axios works
+
+                // Try next https://github.com/axios/axios/issues/89
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${user.jwt}`,
+                    },
+                    data: {},
+                };
+                axios.get(url, config)
+
+                axios.get(`/sprites/${encodeURIComponent(src)}`, 
+                    {
+                        onloadstart: function () {
+                            // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
+                            debugger
+                            if (!initialized) init();
+                        },
+                        onload: function (e) {
+                            debugger
+                            if (this.status != 200) {
+                                doLoadError('xhr - response');
+                            }
+                            // emulating response field for IE9
+                            if (!('response' in this)) {
+                                // // debugger
+                                this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
+                            }
+                            var data = this.response;
+                            if (data.toString().indexOf("ArrayBuffer") > 0) {
+                                data = new Uint8Array(data);
+                            }
+                            debugger
+                            stream = new Stream(data);
+                            setTimeout(doParse, 0);
+                        },
+                        onprogress: function (e) {
+                            debugger
+                            if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
+                        }
+                    }
+                    );
+
+                    // .then((response) => {
+                    //     if (!initialized) init();
+                    //     console.log(response);
+                    //     debugger
+                    //     let data = response;
+                    //     if (data.toString().indexOf("ArrayBuffer") > 0) {
+                    //         data = new Uint8Array(data);
+                    //     }
+                    //     stream = new Stream(data);
+                    //     setTimeout(doParse, 0);
+                    // })
+                    // .catch(function (error) {
+                    //     console.log(error);
+                    //     doLoadError(error);
+                    // });
+                    
             },
             load: function (callback) {
                 this.load_url(gif.getAttribute('rel:animated_src') || gif.src, callback);
