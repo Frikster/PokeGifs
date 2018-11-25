@@ -949,110 +949,257 @@ const axios = require("axios");
             load_url: function(src,callback){
                 if (!load_setup(callback)) return;
 
-                var h = new XMLHttpRequest();
+                // FAILS
+                // var h = new XMLHttpRequest();
 
-                // new browsers (XMLHttpRequest2-compliant)
-                h.open('GET', src, true);
-                if ('overrideMimeType' in h) {
-                    // This is triggered as your browser is new
-                    h.overrideMimeType('text/plain; charset=x-user-defined');
-                }
+                // // new browsers (XMLHttpRequest2-compliant)
+                // h.open('GET', src, true);
+                // if ('overrideMimeType' in h) {
+                //     // This is triggered as your browser is new
+                //     h.overrideMimeType('text/plain; charset=x-user-defined');
+                // }
 
-                // old browsers (XMLHttpRequest-compliant)
-                else if ('responseType' in h) {
-                    // // debugger
-                    h.responseType = 'arraybuffer';
-                }
+                // // old browsers (XMLHttpRequest-compliant)
+                // else if ('responseType' in h) {
+                //     // // debugger
+                //     h.responseType = 'arraybuffer';
+                // }
 
-                // IE9 (Microsoft.XMLHTTP-compliant)
-                else {
-                    h.setRequestHeader('Accept-Charset', 'x-user-defined');
-                }
+                // // IE9 (Microsoft.XMLHTTP-compliant)
+                // else {
+                //     h.setRequestHeader('Accept-Charset', 'x-user-defined');
+                // }
 
-                h.onloadstart = function() {
-                    // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
-                    if (!initialized) init();
-                };
-                h.onload = function(e) {
-                    if (this.status != 200) {
-                        doLoadError('xhr - response');
-                    }
-                    // emulating response field for IE9
-                    if (!('response' in this)) {
-                        // // debugger
-                        this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
-                    }
-                    var data = this.response;
-                    if (data.toString().indexOf("ArrayBuffer") > 0) {
-                        data = new Uint8Array(data);
-                    }
-                    debugger
-                    stream = new Stream(data);
-                    setTimeout(doParse, 0);
-                };
-                h.onprogress = function (e) {
-                    if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
-                };
-                h.onerror = function() { doLoadError('xhr'); };
+                // h.onloadstart = function() {
+                //     // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
+                //     if (!initialized) init();
+                // };
+                // h.onload = function(e) {
+                //     debugger
+                //     if (this.status != 200) {
+                //         doLoadError('xhr - response');
+                //     }
+                //     // emulating response field for IE9
+                //     if (!('response' in this)) {
+                //         // // debugger
+                //         this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
+                //     }
+                //     var data = this.response;
+                //     debugger
+                //     if (data.toString().indexOf("ArrayBuffer") > 0) {
+                //         data = new Uint8Array(data);
+                //     }
+                //     debugger
+                //     stream = new Stream(data);
+                //     setTimeout(doParse, 0);
+                // };
+                // h.onprogress = function (e) {
+                //     debugger
+                //     if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
+                // };
+                // h.onerror = function() { doLoadError('xhr'); };
+
+                // // FAILS
+                // // Following two do nothing :( 
+                // // h.setRequestHeader('Access-Control-Allow-Origin', '*');
+                // // h.setRequestHeader('Access-Control-Allow-Headers', '*');
                 // h.send(); //TODO: Remove all code using XMLHttpRequest once axios works
 
-                // Try next https://github.com/axios/axios/issues/89
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${user.jwt}`,
-                    },
-                    data: {},
-                };
-                axios.get(url, config)
 
-                axios.get(`/sprites/${encodeURIComponent(src)}`, 
-                    {
+
+                // Try next https://github.com/axios/axios/issues/89
+                // debugger
+                const config = {
+                    // responseType: 'arraybuffer',
+                    // responseType: "blob", 
+                    headers: {
+                        'Content-Type': 'text/plain; charset=x-user-defined',
+                    },
+                    request: {
                         onloadstart: function () {
+                            debugger;
                             // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
-                            debugger
                             if (!initialized) init();
                         },
                         onload: function (e) {
-                            debugger
+                            debugger;
                             if (this.status != 200) {
                                 doLoadError('xhr - response');
-                            }
-                            // emulating response field for IE9
-                            if (!('response' in this)) {
-                                // // debugger
-                                this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
                             }
                             var data = this.response;
                             if (data.toString().indexOf("ArrayBuffer") > 0) {
                                 data = new Uint8Array(data);
                             }
-                            debugger
                             stream = new Stream(data);
                             setTimeout(doParse, 0);
                         },
                         onprogress: function (e) {
                             debugger
                             if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
-                        }
+                        },
+                        onerror: function () { doLoadError('xhr'); }
                     }
-                    );
-
-                    // .then((response) => {
+                };
+                axios.get(`/sprites/${encodeURIComponent(src)}`, config).then(res => {
+                    // res.onloadstart = function () {
+                    //     debugger;
+                    //     // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
                     //     if (!initialized) init();
-                    //     console.log(response);
-                    //     debugger
-                    //     let data = response;
+                    // };
+                    // res.onload = function (e) {
+                    //     debugger;
+                    //     if (this.status != 200) {
+                    //         doLoadError('xhr - response');
+                    //     }
+                    //     var data = this.response;
                     //     if (data.toString().indexOf("ArrayBuffer") > 0) {
                     //         data = new Uint8Array(data);
                     //     }
                     //     stream = new Stream(data);
                     //     setTimeout(doParse, 0);
-                    // })
-                    // .catch(function (error) {
-                    //     console.log(error);
-                    //     doLoadError(error);
-                    // });
+                    // },
+                    // res.onprogress = function (e) {
+                    //     debugger;
+                    //     if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
+                    // },
+                    // res.onerror = function () { doLoadError('xhr'); }
+                    debugger
+
+                    // let reader = new window.FileReader();
+                    // reader.readAsDataURL(res.data);
+                    // reader.onload = function () {
+
+                    //     let imageDataUrl = reader.result;
+                    //     debugger;
+                    //     //gif.setAttribute("rel:animated_src"); 
+                    //     //imageEl.setAttribute("src", imageDataUrl);
+                    // }
+                    console.log(res);
+                });
+
+
+
+
+                // FAILS
+                // const requestInstance = new Request(url = `/sprites/${encodeURIComponent(src)}`, options = {
+                //     onloadstart: function () {
+                //             // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
+                //             debugger
+                //             if (!initialized) init();
+                //         },
+                //     onload: function (e) {
+                //         debugger
+                //         if (this.status != 200) {
+                //             doLoadError('xhr - response');
+                //         }
+                //         // emulating response field for IE9
+                //         if (!('response' in this)) {
+                //             debugger
+                //             this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
+                //         }
+                //         var data = this.response;
+                //         if (data.toString().indexOf("ArrayBuffer") > 0) {
+                //             data = new Uint8Array(data);
+                //         }
+                //         debugger
+                //         stream = new Stream(data);
+                //         setTimeout(doParse, 0);
+                //     },
+                //     onprogress: function (e) {
+                //         debugger
+                //         if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
+                //     }
+                // },
+                // withCredentials = true
+                // )
+                // debugger
+                // requestInstance.get(); 
+
+                // axios.get(`/sprites/${encodeURIComponent(src)}`).then(response => {
+                //     debugger
+                //     console.log(response);
+
+
+                //     const reader = response.body.getReader();
+                //     const stream = new ReadableStream({
+                //         start(controller) {
+                //             // The following function handles each data chunk
+                //             function push() {
+                //                 // "done" is a Boolean and value a "Uint8Array"
+                //                 reader.read().then(({ done, value }) => {
+                //                     // Is there no more data to read?
+                //                     if (done) {
+                //                         // Tell the browser that we have finished sending data
+                //                         controller.close();
+                //                         return;
+                //                     }
+
+                //                     // Get the data and send it to the browser via the controller
+                //                     controller.enqueue(value);
+                //                     push();
+                //                 });
+                //             };
+
+                //             push();
+                //         }
+                //     });
+
+                //     return new Response(stream, { headers: { "Content-Type": "text/html" } });
+
+
+                // }).catch(error => {
+                //     debugger
+                //     console.log('error', error);
+                // })
+
+                // axios.get(`/sprites/${encodeURIComponent(src)}`, 
+                //     {
+                //         request: {
+                //             onloadstart: function () {
+                //                 // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
+                //                 debugger
+                //                 if (!initialized) init();
+                //             },
+                //             onload: function (e) {
+                //                 debugger
+                //                 if (this.status != 200) {
+                //                     doLoadError('xhr - response');
+                //                 }
+                //                 // emulating response field for IE9
+                //                 if (!('response' in this)) {
+                //                     debugger
+                //                     this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
+                //                 }
+                //                 var data = this.response;
+                //                 if (data.toString().indexOf("ArrayBuffer") > 0) {
+                //                     data = new Uint8Array(data);
+                //                 }
+                //                 debugger
+                //                 stream = new Stream(data);
+                //                 setTimeout(doParse, 0);
+                //             },
+                //             onprogress: function (e) {
+                //                 debugger
+                //                 if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
+                //             }
+                //         },
+                //         data: {}
+                //     }
+                //     ).then((response) => {
+                //         if (!initialized) init();
+                //         console.log(response);
+                //         debugger
+                //         let data = response;
+                //         if (data.toString().indexOf("ArrayBuffer") > 0) {
+                //             data = new Uint8Array(data);
+                //         }
+                //         stream = new Stream(data);
+                //         setTimeout(doParse, 0);
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //         doLoadError(error);
+                //     });
                     
             },
             load: function (callback) {
