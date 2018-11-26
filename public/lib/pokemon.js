@@ -10,6 +10,7 @@ class Pokemon {
     this.destination = options.destination;
     this.selected = options.selected;
     this.imgSrc = options.imgSrc;
+    this.imgSrcBack = options.imgSrcBack;
     this.imgId = options.imgId;
     if (this.imgSrc && !this.spritesheetCanvas && this.imgSrc.slice(this.imgSrc.length - 3, this.imgSrc.length) === 'gif') {
       let img = document.createElement("img");
@@ -20,22 +21,11 @@ class Pokemon {
       let div = document.getElementById("spritesheets");
       div.appendChild(img);
 
-      // let spriteUrl = encodeURIComponent(this.imgSrc);
-      // axios.get(`/sprites/${spriteUrl}`)
-      //   .then((response) => {
-      //     debugger
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     debugger
-      //     console.log(error);
-      //   });
       let superGif = new SuperGif({
         gif: document.getElementById(this.imgId),
         auto_play: false
       });
       const play = (res) => {
-        debugger
         superGif.play();
         for (let i = 1; i < superGif.get_length(); i++) {
           let offset = { x: 0, y: i * superGif.get_canvas().height };
@@ -50,6 +40,31 @@ class Pokemon {
         this.radius = this.width > this.height ? this.width / 2 : this.height / 2;
       }
       superGif.load(play);
+
+      // Make the back-facing gif
+      let imgBack = document.createElement("img");
+      imgBack.src = this.imgSrcBack;
+      imgBack.id = this.imgId + 'b';
+      imgBack.setAttribute("rel:animated_src", this.imgSrcBack);
+      imgBack.crossOrigin = "use-credentials";
+      div.appendChild(imgBack);
+
+      let superGifBack = new SuperGif({
+        gif: document.getElementById(imgBack.id),
+        auto_play: false
+      });
+      const playBack = (res) => {
+        superGifBack.play();
+        for (let i = 1; i < superGifBack.get_length(); i++) {
+          let offset = { x: 0, y: i * superGifBack.get_canvas().height };
+          superGifBack.set_frame_offset(i, offset);
+        }
+        superGifBack.set_sizes(superGifBack.get_canvas().width, superGifBack.get_length() * superGifBack.get_canvas().height);
+        superGifBack.get_canvas().id = this.imgBackId;
+        this.spritesheetCanvasBack = superGifBack.get_canvas();
+      }
+      superGifBack.load(playBack);
+
     }
     this.currentFrame = 0;   
     this.goingRound = false;
@@ -121,9 +136,13 @@ class Pokemon {
 
     }
 
-    if (this.spritesheetCanvas) {
+    if (this.spritesheetCanvas && this.vel[1] >= 0) {
       ctx.drawImage(this.spritesheetCanvas, 0, this.currentFrame * this.height, this.width, this.height,
          this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height);
+      this.currentFrame = (this.currentFrame + 1) % this.num_frames;
+    } else if (this.spritesheetCanvasBack && this.vel[1] < 0) {
+      ctx.drawImage(this.spritesheetCanvasBack, 0, this.currentFrame * this.height, this.width, this.height,
+        this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height);
       this.currentFrame = (this.currentFrame + 1) % this.num_frames;
     } else {
       let img = new Image();

@@ -220,6 +220,7 @@ class Board {
     let newPoke = new PlayerPokemon({
       pos: droppedPoke.pos,
       imgSrc: `https://sprites.pokecheck.org/i/${droppedPoke.imgId}.gif`,
+      imgSrcBack: `https://sprites.pokecheck.org/b/${droppedPoke.imgId}.gif`,
       imgId: droppedPoke.imgId
     });
     // debugger

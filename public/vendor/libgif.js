@@ -1024,12 +1024,12 @@ const axios = require("axios");
                             if (res.status != 200) {
                                 doLoadError('xhr - response');
                             }
-                            debugger
+                            // debugger
                             var enc = new TextDecoder("x-user-defined");
                             var data = enc.decode(res.data);
-                            window.newWayData = data;
+                            // window.newWayData = data;
 
-                            debugger
+                            // debugger
                             if (data.toString().indexOf("ArrayBuffer") > 0) {
                                 data = new Uint8Array(data);
                             }
