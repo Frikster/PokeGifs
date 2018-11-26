@@ -34,16 +34,17 @@ app.get('/sprites/:spriteUrl', (request, response) => {
 
   global.Headers = global.Headers || require("fetch-headers");
   let myHeaders = new Headers();
-  myHeaders.append("Content-Type", "text/plain; charset=x-user-defined");
-  // headers.append("Accept", "'text/plain; charset=x-user-defined'");
+  myHeaders.append("Content-Type", "text/plain");
+
+  myHeaders.append("Content-Type", "text/plain");
+  myHeaders.append("Accept", "text/plain");
   myHeaders.append("Access-Control-Allow-Origin", "http://localhost:8000");
   myHeaders.append("X-Requested-With", "XMLHttpRequest");
   myHeaders.append("GET");
 
   fetch(proxyurl + `${decodeURIComponent(request.params.spriteUrl)}`, { headers: myHeaders}) 
     .then(response => {
-      // debugger
-      return response.text();
+      return response.buffer();
     })
     .then(body => {
       debugger

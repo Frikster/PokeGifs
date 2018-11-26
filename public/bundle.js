@@ -677,7 +677,7 @@ class Pokemon {
         auto_play: false
       });
       const play = (res) => {
-        // debugger
+        debugger
         superGif.play();
         for (let i = 1; i < superGif.get_length(); i++) {
           let offset = { x: 0, y: i * superGif.get_canvas().height };
@@ -1012,7 +1012,8 @@ class SpawnSidebar {
     generateRandomPokemon() {
         const randomIds = []
         for(let i = 0; i < 5; i++){
-            let pokeId = (Math.floor(Math.random() * 649) + 1).toString();
+            // let pokeId = (Math.floor(Math.random() * 649) + 1).toString();
+            let pokeId = '4';
             randomIds.push(pokeId);
         }
 

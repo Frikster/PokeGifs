@@ -409,7 +409,6 @@ const axios = require("axios");
         var parseBlock = function () {
             var block = {};
             block.sentinel = st.readByte();
-
             switch (String.fromCharCode(block.sentinel)) { // For ease of matching
                 case '!':
                     block.type = 'ext';
@@ -950,59 +949,57 @@ const axios = require("axios");
                 if (!load_setup(callback)) return;
 
                 // FAILS
-                // var h = new XMLHttpRequest();
+                var h = new XMLHttpRequest();
 
                 // // new browsers (XMLHttpRequest2-compliant)
-                // h.open('GET', src, true);
-                // if ('overrideMimeType' in h) {
-                //     // This is triggered as your browser is new
-                //     h.overrideMimeType('text/plain; charset=x-user-defined');
-                // }
+                h.open('GET', src, true);
+                if ('overrideMimeType' in h) {
+                    // This is triggered as your browser is new
+                    h.overrideMimeType('text/plain; charset=x-user-defined');
+                }
 
-                // // old browsers (XMLHttpRequest-compliant)
-                // else if ('responseType' in h) {
-                //     // // debugger
-                //     h.responseType = 'arraybuffer';
-                // }
+                // old browsers (XMLHttpRequest-compliant)
+                else if ('responseType' in h) {
+                    // // debugger
+                    h.responseType = 'arraybuffer';
+                }
 
-                // // IE9 (Microsoft.XMLHTTP-compliant)
-                // else {
-                //     h.setRequestHeader('Accept-Charset', 'x-user-defined');
-                // }
+                // IE9 (Microsoft.XMLHTTP-compliant)
+                else {
+                    h.setRequestHeader('Accept-Charset', 'x-user-defined');
+                }
 
-                // h.onloadstart = function() {
-                //     // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
-                //     if (!initialized) init();
-                // };
-                // h.onload = function(e) {
-                //     debugger
-                //     if (this.status != 200) {
-                //         doLoadError('xhr - response');
-                //     }
-                //     // emulating response field for IE9
-                //     if (!('response' in this)) {
-                //         // // debugger
-                //         this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
-                //     }
-                //     var data = this.response;
-                //     debugger
-                //     if (data.toString().indexOf("ArrayBuffer") > 0) {
-                //         data = new Uint8Array(data);
-                //     }
-                //     debugger
-                //     stream = new Stream(data);
-                //     setTimeout(doParse, 0);
-                // };
-                // h.onprogress = function (e) {
-                //     debugger
-                //     if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
-                // };
-                // h.onerror = function() { doLoadError('xhr'); };
+                h.onloadstart = function() {
+                    // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
+                    if (!initialized) init();
+                };
+                h.onload = function(e) {
+                    if (this.status != 200) {
+                        doLoadError('xhr - response');
+                    }
+                    // emulating response field for IE9
+                    if (!('response' in this)) {
+                        // // debugger
+                        this.response = new VBArray(this.responseText).toArray().map(String.fromCharCode).join('');
+                    }
+                    var data = this.response;
+                    window.oldWayData = data;
+                    if (data.toString().indexOf("ArrayBuffer") > 0) {
+                        data = new Uint8Array(data);
+                    }
+                    debugger
+                    stream = new Stream(data);
+                    setTimeout(doParse, 0);
+                };
+                h.onprogress = function (e) {
+                    if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
+                };
+                h.onerror = function() { doLoadError('xhr'); };
 
-                // // FAILS
-                // // Following two do nothing :( 
-                // // h.setRequestHeader('Access-Control-Allow-Origin', '*');
-                // // h.setRequestHeader('Access-Control-Allow-Headers', '*');
+                // FAILS
+                // Following two do nothing :( 
+                // h.setRequestHeader('Access-Control-Allow-Origin', '*');
+                // h.setRequestHeader('Access-Control-Allow-Headers', '*');
                 // h.send(); //TODO: Remove all code using XMLHttpRequest once axios works
 
 
@@ -1010,23 +1007,29 @@ const axios = require("axios");
                 // Try next https://github.com/axios/axios/issues/89
                 // debugger
                 const config = {
-                    // responseType: 'arraybuffer',
+                    responseType: 'arraybuffer',
                     // responseType: "blob", 
-                    headers: {
-                        'Content-Type': 'text/plain; charset=x-user-defined',
-                    },
-                    request: {
+                    transformResponse: [data => data],
+                    // headers: {
+                    //     'Content-Type': 'text/plain;charset=x-user-defined',
+                    // },
+                    // request: {
                         onloadstart: function () {
-                            debugger;
+                            // debugger;
                             // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
                             if (!initialized) init();
                         },
-                        onload: function (e) {
-                            debugger;
-                            if (this.status != 200) {
+                        onload: function (res) {
+                            // debugger;
+                            if (res.status != 200) {
                                 doLoadError('xhr - response');
                             }
-                            var data = this.response;
+                            debugger
+                            var enc = new TextDecoder("x-user-defined");
+                            var data = enc.decode(res.data);
+                            window.newWayData = data;
+
+                            debugger
                             if (data.toString().indexOf("ArrayBuffer") > 0) {
                                 data = new Uint8Array(data);
                             }
@@ -1038,33 +1041,14 @@ const axios = require("axios");
                             if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
                         },
                         onerror: function () { doLoadError('xhr'); }
-                    }
+                    // }
                 };
                 axios.get(`/sprites/${encodeURIComponent(src)}`, config).then(res => {
-                    // res.onloadstart = function () {
-                    //     debugger;
-                    //     // Wait until connection is opened to replace the gif element with a canvas to avoid a blank img
-                    //     if (!initialized) init();
-                    // };
-                    // res.onload = function (e) {
-                    //     debugger;
-                    //     if (this.status != 200) {
-                    //         doLoadError('xhr - response');
-                    //     }
-                    //     var data = this.response;
-                    //     if (data.toString().indexOf("ArrayBuffer") > 0) {
-                    //         data = new Uint8Array(data);
-                    //     }
-                    //     stream = new Stream(data);
-                    //     setTimeout(doParse, 0);
-                    // },
-                    // res.onprogress = function (e) {
-                    //     debugger;
-                    //     if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
-                    // },
-                    // res.onerror = function () { doLoadError('xhr'); }
-                    debugger
+                    res.config.onloadstart();
+                    res.config.onload(res);
+                    
 
+                    // res.config.onprogress(res);
                     // let reader = new window.FileReader();
                     // reader.readAsDataURL(res.data);
                     // reader.onload = function () {
@@ -1110,9 +1094,7 @@ const axios = require("axios");
                 //         if (e.lengthComputable) doShowProgress(e.loaded, e.total, true);
                 //     }
                 // },
-                // withCredentials = true
                 // )
-                // debugger
                 // requestInstance.get(); 
 
                 // axios.get(`/sprites/${encodeURIComponent(src)}`).then(response => {

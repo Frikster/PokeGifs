@@ -35,7 +35,7 @@ class Pokemon {
         auto_play: false
       });
       const play = (res) => {
-        // debugger
+        debugger
         superGif.play();
         for (let i = 1; i < superGif.get_length(); i++) {
           let offset = { x: 0, y: i * superGif.get_canvas().height };
