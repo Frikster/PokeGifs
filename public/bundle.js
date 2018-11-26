@@ -705,6 +705,10 @@ class Pokemon {
         superGifBack.set_sizes(superGifBack.get_canvas().width, superGifBack.get_length() * superGifBack.get_canvas().height);
         superGifBack.get_canvas().id = this.imgBackId;
         this.spritesheetCanvasBack = superGifBack.get_canvas();
+        this.num_frames_back = superGifBack.get_length();
+        this.height_back = this.spritesheetCanvasBack.height / this.num_frames_back;
+        this.width_back = this.spritesheetCanvasBack.width;
+        this.radius_back = this.width_back > this.height_back ? this.width_back / 2 : this.height_back / 2;
       }
       superGifBack.load(playBack);
 
@@ -722,9 +726,9 @@ class Pokemon {
          this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height);
       this.currentFrame = (this.currentFrame + 1) % this.num_frames;
     } else if (this.spritesheetCanvasBack && this.vel[1] < 0) {
-      ctx.drawImage(this.spritesheetCanvasBack, 0, this.currentFrame * this.height, this.width, this.height,
-        this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height);
-      this.currentFrame = (this.currentFrame + 1) % this.num_frames;
+      ctx.drawImage(this.spritesheetCanvasBack, 0, this.currentFrame * this.height_back, this.width_back, this.height_back,
+        this.pos[0] - this.width_back / 2, this.pos[1] - this.height_back / 2, this.width_back, this.height_back);
+      this.currentFrame = (this.currentFrame + 1) % this.num_frames_back;
     } else {
       let img = new Image();
       img.src = this.imgSrc;
