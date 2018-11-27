@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const fetch = require('node-fetch')
-const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
+// const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
+const PORT = 8000;
 
 app.use(express.static("public"));
 
@@ -10,6 +11,7 @@ app.get('/', (request, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'))
 })
 
+console.log('BACKEND START');
 app.get('/sprites/:spriteUrl', (request, response) => {
     // make api call using fetch
 
@@ -29,20 +31,17 @@ app.get('/sprites/:spriteUrl', (request, response) => {
   //       // console.log(results); // logs to server
   //       response.send(body); // sends to frontend
   //     });
-
   const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
   global.Headers = global.Headers || require("fetch-headers");
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "text/plain");
-
-  myHeaders.append("Content-Type", "text/plain");
   myHeaders.append("Accept", "text/plain");
-  myHeaders.append("Access-Control-Allow-Origin", "http://localhost:8000");
+  // myHeaders.append("Access-Control-Allow-Origin", "http://localhost:8000");
   myHeaders.append("X-Requested-With", "XMLHttpRequest");
   myHeaders.append("GET");
 
-  fetch(proxyurl + `${decodeURIComponent(request.params.spriteUrl)}`, { headers: myHeaders}) 
+  fetch(`${decodeURIComponent(request.params.spriteUrl)}`, { headers: myHeaders}) 
     .then(response => {
       return response.buffer();
     })

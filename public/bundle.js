@@ -359,10 +359,22 @@ class Board {
     this.spawnSidebar.translationOffset(offsetX, offsetY);
   }
 
+  applyRandomBackground() {
+    //TODO: finish
+    let blueprint_background = new Image();
+    blueprint_background.src = 'images/blueprint_background.png';
+    blueprint_background.onload = function () {
+      let pattern = context.createPattern(this, "repeat");
+      context.fillStyle = pattern;
+      context.fill();
+    };
+  }
+
   draw(ctx) {
     ctx.clearRect(this.offsetX, this.offsetY, 5000, 5000);
     // ctx.restore();
     ctx.fillStyle = Board.BG_COLOR;
+    // applyRandomBackground();
     ctx.fillRect(this.offsetX, this.offsetY, 5000, 5000);
 
     // Order by lowest y location. Pokemon lower on the canvas are in front and thus drawn last
@@ -721,13 +733,42 @@ class Pokemon {
     //TODO: delete if not needed
     if (false) { var h, img; } else if (false) {}
 
-    if (this.spritesheetCanvas && this.vel[1] >= 0) {
+
+    const flipSpriteHorizontally = function (img, x, y, spriteX, spriteY, spriteW, spriteH) {
+      // move to x + img's width
+      // adding img.width is necessary because we're flipping from
+      //     the right side of the img so after flipping it's still
+      //     at [x,y]
+      ctx.translate(x + spriteW, y);
+
+      // scaleX by -1; this "trick" flips horizontally
+      ctx.scale(-1, 1);
+
+      // draw the img
+      // no need for x,y since we've already translated
+      ctx.drawImage(img,
+        spriteX, spriteY, spriteW, spriteH, 0, 0, spriteW, spriteH
+      );
+
+      // always clean up -- reset transformations to default
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    };
+
+    if (this.spritesheetCanvas && this.vel[0] <= 0 && this.vel[1] >= 0) {
       ctx.drawImage(this.spritesheetCanvas, 0, this.currentFrame * this.height, this.width, this.height,
          this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height);
       this.currentFrame = (this.currentFrame + 1) % this.num_frames;
-    } else if (this.spritesheetCanvasBack && this.vel[1] < 0) {
+    } else if (this.spritesheetCanvasBack && this.vel[0] > 0 && this.vel[1] < 0) {
       ctx.drawImage(this.spritesheetCanvasBack, 0, this.currentFrame * this.height_back, this.width_back, this.height_back,
         this.pos[0] - this.width_back / 2, this.pos[1] - this.height_back / 2, this.width_back, this.height_back);
+      this.currentFrame = (this.currentFrame + 1) % this.num_frames_back;
+    } else if (this.spritesheetCanvas && this.vel[0] > 0 && this.vel[1] >= 0) { 
+      flipSpriteHorizontally(this.spritesheetCanvas, this.pos[0] - this.width / 2, this.pos[1] - this.height / 2,
+         0, this.currentFrame * this.height, this.width, this.height);
+      this.currentFrame = (this.currentFrame + 1) % this.num_frames;
+    } else if (this.spritesheetCanvasBack && this.vel[0] < 0 && this.vel[1] < 0) {
+      flipSpriteHorizontally(this.spritesheetCanvasBack, this.pos[0] - this.width_back / 2, this.pos[1] - this.height_back / 2,
+        0, this.currentFrame * this.height_back, this.width_back, this.height_back);
       this.currentFrame = (this.currentFrame + 1) % this.num_frames_back;
     } else {
       let img = new Image();

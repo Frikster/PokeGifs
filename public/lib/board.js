@@ -259,10 +259,22 @@ class Board {
     this.spawnSidebar.translationOffset(offsetX, offsetY);
   }
 
+  applyRandomBackground() {
+    //TODO: finish
+    let blueprint_background = new Image();
+    blueprint_background.src = 'images/blueprint_background.png';
+    blueprint_background.onload = function () {
+      let pattern = context.createPattern(this, "repeat");
+      context.fillStyle = pattern;
+      context.fill();
+    };
+  }
+
   draw(ctx) {
     ctx.clearRect(this.offsetX, this.offsetY, 5000, 5000);
     // ctx.restore();
     ctx.fillStyle = Board.BG_COLOR;
+    // applyRandomBackground();
     ctx.fillRect(this.offsetX, this.offsetY, 5000, 5000);
 
     // Order by lowest y location. Pokemon lower on the canvas are in front and thus drawn last
