@@ -105,7 +105,15 @@ document.addEventListener("DOMContentLoaded", () => {
       this.offsetX -= dirX;
       this.offsetY -= dirY;
       // ctx.save();
-      ctx.translate(dirX, dirY); 
+
+      let map = document.getElementById("canvas-map");
+      if (map.style.left === "") { map.style.left = 0 };
+      if (map.style.top === "") { map.style.top = 0 };
+      map.style.left = parseInt(map.style.left) + dirX;
+      map.style.top = parseInt(map.style.top) + dirY;
+      
+      console.log(map.style.left)
+      // ctx.translate(dirX, dirY); 
       board.setOffsets(this.offsetX, this.offsetY);
     });
   }, canvasEl);

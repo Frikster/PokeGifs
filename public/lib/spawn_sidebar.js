@@ -10,9 +10,10 @@ class SpawnSidebar {
         this.ySpacing = SidebarPokemon.RADIUS * 3;
         this.firstPokeYPosition = topLeftCoords[1] + this.ySpacing;
         this.pokemon = [];
+        this.offsets = [0, 0];
         this.generateRandomPokemon();
         this.height = SpawnSidebar.NUM_POKEMON * SidebarPokemon.RADIUS * 3;
-        setInterval(this.generateRandomPokemon.bind(this), 5000);
+        setInterval(this.generateRandomPokemon.bind(this), 7500);
     }
 
     generateRandomPokemon() {
@@ -29,6 +30,7 @@ class SpawnSidebar {
                 imgSrc: `https://sprites.pokecheck.org/icon/${randomIds[i]}.png`,
                 imgId: randomIds[i]
             });
+            newPoke.translationOffset(this.offsets[0], this.offsets[1]);
             if (this.pokemon.length != SpawnSidebar.NUM_POKEMON) {
                 this.pokemon.push(newPoke);
             } else if(!this.pokemon[i].isDragging) {
@@ -50,6 +52,7 @@ class SpawnSidebar {
     }
 
     translationOffset(offsetX, offsetY) {
+        this.offsets = [offsetX, offsetY];
         this.topLeftCoords[0] = this.untranslatedTopLeftCoords[0] + offsetX;
         this.topLeftCoords[1] = this.untranslatedTopLeftCoords[1] + offsetY;
         this.pokemon.forEach(poke => {

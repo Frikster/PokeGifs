@@ -8,7 +8,8 @@ const config = {
     path: path.join(__dirname, "./public")
   },
   plugins: [new webpack.ProgressPlugin()],
-  devtool: "source-map"
+  devtool: "source-map",
+  // "target": "node"
 };
 
 module.exports = config;

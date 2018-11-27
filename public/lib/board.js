@@ -1,3 +1,5 @@
+// const fs = require("file-system");
+// const randomFile = require("select-random-file");
 const Util = require("./util");
 import PlayerPokemon from "./player_pokemon";
 import * as UI from "./ui";
@@ -262,20 +264,26 @@ class Board {
   applyRandomBackground() {
     //TODO: finish
     let blueprint_background = new Image();
-    blueprint_background.src = 'images/blueprint_background.png';
+    const dir = '../assets/images/background'
+    // debugger
+    // randomFile(dir, (err, file) => {
+    //   blueprint_background.src = file;
+    // })
+    blueprint_background.src = dir + `/Broag_Garden_Entrance_image.jpg`;
+
     blueprint_background.onload = function () {
-      let pattern = context.createPattern(this, "repeat");
-      context.fillStyle = pattern;
-      context.fill();
+      let pattern = ctx.createPattern(this, "repeat");
+      ctx.fillStyle = pattern;
+      ctx.fill();
     };
   }
 
   draw(ctx) {
     ctx.clearRect(this.offsetX, this.offsetY, 5000, 5000);
     // ctx.restore();
-    ctx.fillStyle = Board.BG_COLOR;
-    // applyRandomBackground();
-    ctx.fillRect(this.offsetX, this.offsetY, 5000, 5000);
+    // ctx.fillStyle = Board.BG_COLOR;
+    // this.applyRandomBackground();
+    // ctx.fillRect(this.offsetX, this.offsetY, 5000, 5000);
 
     // Order by lowest y location. Pokemon lower on the canvas are in front and thus drawn last
     this.allPokemon().sort((poke1, poke2) => (poke1.pos[1] + poke1.radius) - (poke2.pos[1] + poke2.radius)).forEach( poke => {

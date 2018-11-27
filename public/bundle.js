@@ -98,6 +98,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _player_pokemon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./player_pokemon */ "./public/lib/player_pokemon.js");
 /* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui */ "./public/lib/ui.js");
 /* harmony import */ var _spawn_sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./spawn_sidebar */ "./public/lib/spawn_sidebar.js");
+// const fs = require("file-system");
+// const randomFile = require("select-random-file");
 const Util = __webpack_require__(/*! ./util */ "./public/lib/util.js");
 
 
@@ -362,20 +364,26 @@ class Board {
   applyRandomBackground() {
     //TODO: finish
     let blueprint_background = new Image();
-    blueprint_background.src = 'images/blueprint_background.png';
+    const dir = '../assets/images/background'
+    // debugger
+    // randomFile(dir, (err, file) => {
+    //   blueprint_background.src = file;
+    // })
+    blueprint_background.src = dir + `/Broag_Garden_Entrance_image.jpg`;
+
     blueprint_background.onload = function () {
-      let pattern = context.createPattern(this, "repeat");
-      context.fillStyle = pattern;
-      context.fill();
+      let pattern = ctx.createPattern(this, "repeat");
+      ctx.fillStyle = pattern;
+      ctx.fill();
     };
   }
 
   draw(ctx) {
     ctx.clearRect(this.offsetX, this.offsetY, 5000, 5000);
     // ctx.restore();
-    ctx.fillStyle = Board.BG_COLOR;
-    // applyRandomBackground();
-    ctx.fillRect(this.offsetX, this.offsetY, 5000, 5000);
+    // ctx.fillStyle = Board.BG_COLOR;
+    // this.applyRandomBackground();
+    // ctx.fillRect(this.offsetX, this.offsetY, 5000, 5000);
 
     // Order by lowest y location. Pokemon lower on the canvas are in front and thus drawn last
     this.allPokemon().sort((poke1, poke2) => (poke1.pos[1] + poke1.radius) - (poke2.pos[1] + poke2.radius)).forEach( poke => {
@@ -627,7 +635,15 @@ document.addEventListener("DOMContentLoaded", () => {
       this.offsetX -= dirX;
       this.offsetY -= dirY;
       // ctx.save();
-      ctx.translate(dirX, dirY); 
+
+      let map = document.getElementById("canvas-map");
+      if (map.style.left === "") { map.style.left = 0 };
+      if (map.style.top === "") { map.style.top = 0 };
+      map.style.left = parseInt(map.style.left) + dirX;
+      map.style.top = parseInt(map.style.top) + dirY;
+      
+      console.log(map.style.left)
+      // ctx.translate(dirX, dirY); 
       board.setOffsets(this.offsetX, this.offsetY);
     });
   }, canvasEl);
@@ -1031,13 +1047,16 @@ class SidebarPokemon extends _pokemon__WEBPACK_IMPORTED_MODULE_0__["default"] {
     options.vel = [0, 0];
     options.color = options.color || Util.randomColor();
     super(options)
+    this.offsets = [0,0];
     this.starting_pos = options.pos.slice(0);
     this.isDragging = false;
   }
 
   translationOffset(offsetX, offsetY) {
+    this.offsets = [offsetX, offsetY];
     this.pos[0] = this.starting_pos[0] + offsetX;
     this.pos[1] = this.starting_pos[1] + offsetY;
+    console.log(this.pos[0]);
   }
 
 }
@@ -1069,9 +1088,10 @@ class SpawnSidebar {
         this.ySpacing = _sidebar_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"].RADIUS * 3;
         this.firstPokeYPosition = topLeftCoords[1] + this.ySpacing;
         this.pokemon = [];
+        this.offsets = [0, 0];
         this.generateRandomPokemon();
         this.height = SpawnSidebar.NUM_POKEMON * _sidebar_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"].RADIUS * 3;
-        setInterval(this.generateRandomPokemon.bind(this), 5000);
+        setInterval(this.generateRandomPokemon.bind(this), 7500);
     }
 
     generateRandomPokemon() {
@@ -1088,6 +1108,7 @@ class SpawnSidebar {
                 imgSrc: `https://sprites.pokecheck.org/icon/${randomIds[i]}.png`,
                 imgId: randomIds[i]
             });
+            newPoke.translationOffset(this.offsets[0], this.offsets[1]);
             if (this.pokemon.length != SpawnSidebar.NUM_POKEMON) {
                 this.pokemon.push(newPoke);
             } else if(!this.pokemon[i].isDragging) {
@@ -1109,6 +1130,7 @@ class SpawnSidebar {
     }
 
     translationOffset(offsetX, offsetY) {
+        this.offsets = [offsetX, offsetY];
         this.topLeftCoords[0] = this.untranslatedTopLeftCoords[0] + offsetX;
         this.topLeftCoords[1] = this.untranslatedTopLeftCoords[1] + offsetY;
         this.pokemon.forEach(poke => {

@@ -1,6 +1,11 @@
-.map {
+#viewport {
     position: absolute;
     overflow: hidden;
     height: 1000px;
     width: 2000px;
+}
+
+#canvas-map {
+    position: relative;
+    background-image: url('assets/images/background/Broag_Garden_Entrance_image.jpg');
 }
