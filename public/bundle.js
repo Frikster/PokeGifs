@@ -115,6 +115,13 @@ class Board {
     this.selectorRectangle = null;
     this.previousLeftMouseClick = [];
     this.spawnSidebar = new _spawn_sidebar__WEBPACK_IMPORTED_MODULE_2__["default"](Board.SPAWN_SIDEBAR_COORDS);
+
+    let form = document.getElementById("custom-gif-input");
+    if (form.attachEvent) {
+      form.attachEvent("submit", this.handleCustomPokemonSubmit.bind(this));
+    } else {
+      form.addEventListener("submit", this.handleCustomPokemonSubmit.bind(this));
+    }
   }
 
   add(object) {
@@ -301,6 +308,27 @@ class Board {
     } else {
       this.spawnSidebar.updateDraggedPoke([e.x, e.y]);
     }
+  }
+
+  handleCustomPokemonSubmit(e) {
+    if (e.preventDefault) e.preventDefault();
+    const front = e.target.front.value;
+    const back = e.target.back.value;
+
+    let options = {
+      imgSrc: front,
+      imgSrcBack: back,
+      imgId: Math.random().toString(36).substring(2)
+        + (new Date()).getTime().toString(36),
+      pos: [300, 300]
+    }
+    this.createPokemon(options) 
+    return false;
+  }
+
+  createPokemon(options) {
+    let newPoke = new _player_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"](options);
+    this.playerPokemon.push(newPoke);
   }
 
   createPokemonFromSidebarPokemon(droppedPoke){
@@ -499,7 +527,9 @@ class PlayerPokemon extends _pokemon__WEBPACK_IMPORTED_MODULE_0__["default"] {
     if(id.length === 1) { id = '00' + id}
     if (id.length === 2) { id = '0' + id }
     options.imgSrc = options.imgSrc.replace(options.imgId, id);
-    options.imgId = id;
+    options.imgSrcBack = options.imgSrcBack.replace(options.imgId, id);
+    options.imgId = id + '_' + Math.random().toString(36).substring(2)
+      + (new Date()).getTime().toString(36); // Make Id unique
 
     super(options);
     this.selected = options.selected || false;
@@ -629,13 +659,19 @@ document.addEventListener("DOMContentLoaded", () => {
       // }
     }, false);
   canvasEl.addEventListener("wheel", function (e) {
-    const dirX = 0;
-    const dirY = e.deltaY*-1;
+    const dirX = parseInt(e.deltaX * -1);
+    const dirY = parseInt(e.deltaY*-1);
     this.offsetX -= dirX;
     this.offsetY -= dirY;
 
     let map = document.getElementById("canvas-map");
+    if (map.style.left === "") { map.style.left = 0 };
     if (map.style.top === "") { map.style.top = 0 };
+    if (parseInt(map.style.left) + dirX < 0 && parseInt(map.style.left) + dirX > map.offsetWidth * -1 + viewport.offsetWidth) {
+      map.style.left = parseInt(map.style.left) + dirX;
+    } else {
+      this.offsetX += dirX;
+    }
     if (parseInt(map.style.top) + dirY < 0 && parseInt(map.style.top) + dirY > map.offsetHeight * -1 + viewport.offsetHeight) {
       map.style.top = parseInt(map.style.top) + dirY;
     } else {
@@ -1123,8 +1159,8 @@ class SpawnSidebar {
     generateRandomPokemon() {
         const randomIds = []
         for(let i = 0; i < 5; i++){
-            let pokeId = (Math.floor(Math.random() * 649) + 1).toString();
-            // let pokeId = '4';
+            // let pokeId = (Math.floor(Math.random() * 649) + 1).toString();
+            let pokeId = "86";
             randomIds.push(pokeId);
         }
 

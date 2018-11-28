@@ -15,6 +15,13 @@ class Board {
     this.selectorRectangle = null;
     this.previousLeftMouseClick = [];
     this.spawnSidebar = new SpawnSidebar(Board.SPAWN_SIDEBAR_COORDS);
+
+    let form = document.getElementById("custom-gif-input");
+    if (form.attachEvent) {
+      form.attachEvent("submit", this.handleCustomPokemonSubmit.bind(this));
+    } else {
+      form.addEventListener("submit", this.handleCustomPokemonSubmit.bind(this));
+    }
   }
 
   add(object) {
@@ -201,6 +208,27 @@ class Board {
     } else {
       this.spawnSidebar.updateDraggedPoke([e.x, e.y]);
     }
+  }
+
+  handleCustomPokemonSubmit(e) {
+    if (e.preventDefault) e.preventDefault();
+    const front = e.target.front.value;
+    const back = e.target.back.value;
+
+    let options = {
+      imgSrc: front,
+      imgSrcBack: back,
+      imgId: Math.random().toString(36).substring(2)
+        + (new Date()).getTime().toString(36),
+      pos: [300, 300]
+    }
+    this.createPokemon(options) 
+    return false;
+  }
+
+  createPokemon(options) {
+    let newPoke = new PlayerPokemon(options);
+    this.playerPokemon.push(newPoke);
   }
 
   createPokemonFromSidebarPokemon(droppedPoke){

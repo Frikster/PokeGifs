@@ -15,3 +15,8 @@
     position: absolute;
     display: none;
 }
+
+#custom-gif-input {
+    position: fixed;
+    bottom: 0%; 
+}

@@ -99,13 +99,19 @@ document.addEventListener("DOMContentLoaded", () => {
       // }
     }, false);
   canvasEl.addEventListener("wheel", function (e) {
-    const dirX = 0;
-    const dirY = e.deltaY*-1;
+    const dirX = parseInt(e.deltaX * -1);
+    const dirY = parseInt(e.deltaY*-1);
     this.offsetX -= dirX;
     this.offsetY -= dirY;
 
     let map = document.getElementById("canvas-map");
+    if (map.style.left === "") { map.style.left = 0 };
     if (map.style.top === "") { map.style.top = 0 };
+    if (parseInt(map.style.left) + dirX < 0 && parseInt(map.style.left) + dirX > map.offsetWidth * -1 + viewport.offsetWidth) {
+      map.style.left = parseInt(map.style.left) + dirX;
+    } else {
+      this.offsetX += dirX;
+    }
     if (parseInt(map.style.top) + dirY < 0 && parseInt(map.style.top) + dirY > map.offsetHeight * -1 + viewport.offsetHeight) {
       map.style.top = parseInt(map.style.top) + dirY;
     } else {

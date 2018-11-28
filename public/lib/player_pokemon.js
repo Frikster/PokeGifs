@@ -10,7 +10,9 @@ class PlayerPokemon extends Pokemon {
     if(id.length === 1) { id = '00' + id}
     if (id.length === 2) { id = '0' + id }
     options.imgSrc = options.imgSrc.replace(options.imgId, id);
-    options.imgId = id;
+    options.imgSrcBack = options.imgSrcBack.replace(options.imgId, id);
+    options.imgId = id + '_' + Math.random().toString(36).substring(2)
+      + (new Date()).getTime().toString(36); // Make Id unique
 
     super(options);
     this.selected = options.selected || false;
