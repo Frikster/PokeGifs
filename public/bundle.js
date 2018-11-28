@@ -423,7 +423,7 @@ class Board {
 Board.BG_COLOR = "#28ba32";
 Board.DIM_X = 2000;
 Board.DIM_Y = 1000;
-Board.SPAWN_SIDEBAR_COORDS = [Board.DIM_X - 200 , 50];
+Board.SPAWN_SIDEBAR_COORDS = [50 , 50];
 Board.FPS = 32;
 Board.MOVES = {
     w: [0, 20],
@@ -1087,7 +1087,7 @@ class SidebarPokemon extends _pokemon__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 }
 
-SidebarPokemon.RADIUS = 15;
+SidebarPokemon.RADIUS = 30;
 /* harmony default export */ __webpack_exports__["default"] = (SidebarPokemon);
 
 /***/ }),
@@ -1111,12 +1111,12 @@ class SpawnSidebar {
         this.topLeftCoords = topLeftCoords;
         this.width = _sidebar_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"].RADIUS * 4;
         this.pokeX = topLeftCoords[0] + (this.width / 2);
-        this.ySpacing = _sidebar_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"].RADIUS * 3;
-        this.firstPokeYPosition = topLeftCoords[1] + this.ySpacing;
+        this.ySpacing = _sidebar_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"].RADIUS * 2.5;
+        this.firstPokeYPosition = topLeftCoords[1] + this.width + (1.4*_sidebar_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"].RADIUS);
         this.pokemon = [];
         this.offsets = [0, 0];
         this.generateRandomPokemon();
-        this.height = SpawnSidebar.NUM_POKEMON * _sidebar_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"].RADIUS * 3;
+        this.height = SpawnSidebar.NUM_POKEMON * _sidebar_pokemon__WEBPACK_IMPORTED_MODULE_0__["default"].RADIUS * 4;
         setInterval(this.generateRandomPokemon.bind(this), 7500);
     }
 
@@ -1148,6 +1148,10 @@ class SpawnSidebar {
         ctx.lineWidth = 0.5;
         ctx.fillStyle = 'white';
         ctx.fillRect(this.topLeftCoords[0], this.topLeftCoords[1], this.width, this.height);
+
+        let base_image = new Image();
+        base_image.src = '../assets/images/Drag-Drop-macro.png';
+        ctx.drawImage(base_image, this.topLeftCoords[0], this.topLeftCoords[1], this.width, this.width);
 
         this.pokemon.forEach(poke => {
             poke.draw(ctx);

@@ -1,8 +1,8 @@
 #viewport {
     position: absolute;
     overflow: hidden;
-    height: 750px;
-    width: 2000px;
+    height: 95vh;
+    width: 95vw;
 }
 
 #canvas-map {

@@ -323,7 +323,7 @@ class Board {
 Board.BG_COLOR = "#28ba32";
 Board.DIM_X = 2000;
 Board.DIM_Y = 1000;
-Board.SPAWN_SIDEBAR_COORDS = [Board.DIM_X - 200 , 50];
+Board.SPAWN_SIDEBAR_COORDS = [50 , 50];
 Board.FPS = 32;
 Board.MOVES = {
     w: [0, 20],

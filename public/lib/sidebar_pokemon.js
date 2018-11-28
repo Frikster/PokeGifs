@@ -21,5 +21,5 @@ class SidebarPokemon extends Pokemon {
 
 }
 
-SidebarPokemon.RADIUS = 15;
+SidebarPokemon.RADIUS = 30;
 export default SidebarPokemon;
