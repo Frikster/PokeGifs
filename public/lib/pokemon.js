@@ -48,6 +48,7 @@ class Pokemon {
       imgBack.setAttribute("rel:animated_src", this.imgSrcBack);
       imgBack.crossOrigin = "use-credentials";
       div.appendChild(imgBack);
+      // dispatchEvent.style.display = 'hidden';
 
       let superGifBack = new SuperGif({
         gif: document.getElementById(imgBack.id),
@@ -345,6 +346,7 @@ class Pokemon {
 
   setMotionAndDestination(destination) {
     this.vel = Util.direction(this.pos, destination);
+    this.vel[0] *= 4; this.vel[1] *= 4;
     this.destination = destination;
   }
 

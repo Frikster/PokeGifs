@@ -361,22 +361,22 @@ class Board {
     this.spawnSidebar.translationOffset(offsetX, offsetY);
   }
 
-  applyRandomBackground() {
-    //TODO: finish
-    let blueprint_background = new Image();
-    const dir = '../assets/images/background'
-    // debugger
-    // randomFile(dir, (err, file) => {
-    //   blueprint_background.src = file;
-    // })
-    blueprint_background.src = dir + `/Broag_Garden_Entrance_image.jpg`;
+  // applyRandomBackground() {
+  //   //TODO: finish
+  //   let blueprint_background = new Image();
+  //   const dir = '../assets/images/background'
+  //   // debugger
+  //   // randomFile(dir, (err, file) => {
+  //   //   blueprint_background.src = file;
+  //   // })
+  //   blueprint_background.src = dir + `/Broag_Garden_Entrance_image.jpg`;
 
-    blueprint_background.onload = function () {
-      let pattern = ctx.createPattern(this, "repeat");
-      ctx.fillStyle = pattern;
-      ctx.fill();
-    };
-  }
+  //   blueprint_background.onload = function () {
+  //     let pattern = ctx.createPattern(this, "repeat");
+  //     ctx.fillStyle = pattern;
+  //     ctx.fill();
+  //   };
+  // }
 
   draw(ctx) {
     ctx.clearRect(this.offsetX, this.offsetY, 5000, 5000);
@@ -426,14 +426,14 @@ Board.DIM_Y = 1000;
 Board.SPAWN_SIDEBAR_COORDS = [Board.DIM_X - 200 , 50];
 Board.FPS = 32;
 Board.MOVES = {
-    w: [0, 2],
-    a: [2, 0],
-    s: [0, -2],
-    d: [-2, 0],
-    up: [0, 2],
-    left: [2, 0],
-    down: [0, -2],
-    right: [-2, 0],
+    w: [0, 20],
+    a: [20, 0],
+    s: [0, -20],
+    d: [-20, 0],
+    up: [0, 20],
+    left: [20, 0],
+    down: [0, -20],
+    right: [-20, 0],
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Board);
@@ -558,7 +558,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const canvasEl = document.getElementsByTagName("canvas")[0];
   canvasEl.width = 5000;
-  canvasEl.height = 5000;
+  canvasEl.height = 4300;
 
   const ctx = canvasEl.getContext("2d");
 
@@ -628,6 +628,21 @@ document.addEventListener("DOMContentLoaded", () => {
       //   ctx.translate(e.x - canvasEl.width)
       // }
     }, false);
+  canvasEl.addEventListener("wheel", function (e) {
+    const dirX = 0;
+    const dirY = e.deltaY*-1;
+    this.offsetX -= dirX;
+    this.offsetY -= dirY;
+
+    let map = document.getElementById("canvas-map");
+    if (map.style.top === "") { map.style.top = 0 };
+    if (parseInt(map.style.top) + dirY < 0 && parseInt(map.style.top) + dirY > map.offsetHeight * -1 + viewport.offsetHeight) {
+      map.style.top = parseInt(map.style.top) + dirY;
+    } else {
+      this.offsetY += dirY;
+    } 
+    board.setOffsets(this.offsetX, this.offsetY); 
+  }, false);
   Object.keys(_board__WEBPACK_IMPORTED_MODULE_0__["default"].MOVES).forEach(function(k) {
     key(k, () => { 
       const dirX = _board__WEBPACK_IMPORTED_MODULE_0__["default"].MOVES[k][0];
@@ -637,10 +652,19 @@ document.addEventListener("DOMContentLoaded", () => {
       // ctx.save();
 
       let map = document.getElementById("canvas-map");
+      let viewport = document.getElementById("viewport");
       if (map.style.left === "") { map.style.left = 0 };
       if (map.style.top === "") { map.style.top = 0 };
-      map.style.left = parseInt(map.style.left) + dirX;
-      map.style.top = parseInt(map.style.top) + dirY;
+      if (parseInt(map.style.left) + dirX < 0 && parseInt(map.style.left) + dirX > map.offsetWidth * -1 + viewport.offsetWidth) {
+        map.style.left = parseInt(map.style.left) + dirX;
+      } else {
+        this.offsetX += dirX;
+      }
+      if (parseInt(map.style.top) + dirY < 0 && parseInt(map.style.top) + dirY > map.offsetHeight * -1 + viewport.offsetHeight) {
+        map.style.top = parseInt(map.style.top) + dirY;
+      } else {
+        this.offsetY += dirY;
+      }
       
       console.log(map.style.left)
       // ctx.translate(dirX, dirY); 
@@ -719,6 +743,7 @@ class Pokemon {
       imgBack.setAttribute("rel:animated_src", this.imgSrcBack);
       imgBack.crossOrigin = "use-credentials";
       div.appendChild(imgBack);
+      // dispatchEvent.style.display = 'hidden';
 
       let superGifBack = new SuperGif({
         gif: document.getElementById(imgBack.id),
@@ -954,6 +979,7 @@ class Pokemon {
 
   setMotionAndDestination(destination) {
     this.vel = Util.direction(this.pos, destination);
+    this.vel[0] *= 4; this.vel[1] *= 4;
     this.destination = destination;
   }
 

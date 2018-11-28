@@ -261,22 +261,22 @@ class Board {
     this.spawnSidebar.translationOffset(offsetX, offsetY);
   }
 
-  applyRandomBackground() {
-    //TODO: finish
-    let blueprint_background = new Image();
-    const dir = '../assets/images/background'
-    // debugger
-    // randomFile(dir, (err, file) => {
-    //   blueprint_background.src = file;
-    // })
-    blueprint_background.src = dir + `/Broag_Garden_Entrance_image.jpg`;
+  // applyRandomBackground() {
+  //   //TODO: finish
+  //   let blueprint_background = new Image();
+  //   const dir = '../assets/images/background'
+  //   // debugger
+  //   // randomFile(dir, (err, file) => {
+  //   //   blueprint_background.src = file;
+  //   // })
+  //   blueprint_background.src = dir + `/Broag_Garden_Entrance_image.jpg`;
 
-    blueprint_background.onload = function () {
-      let pattern = ctx.createPattern(this, "repeat");
-      ctx.fillStyle = pattern;
-      ctx.fill();
-    };
-  }
+  //   blueprint_background.onload = function () {
+  //     let pattern = ctx.createPattern(this, "repeat");
+  //     ctx.fillStyle = pattern;
+  //     ctx.fill();
+  //   };
+  // }
 
   draw(ctx) {
     ctx.clearRect(this.offsetX, this.offsetY, 5000, 5000);
@@ -326,14 +326,14 @@ Board.DIM_Y = 1000;
 Board.SPAWN_SIDEBAR_COORDS = [Board.DIM_X - 200 , 50];
 Board.FPS = 32;
 Board.MOVES = {
-    w: [0, 2],
-    a: [2, 0],
-    s: [0, -2],
-    d: [-2, 0],
-    up: [0, 2],
-    left: [2, 0],
-    down: [0, -2],
-    right: [-2, 0],
+    w: [0, 20],
+    a: [20, 0],
+    s: [0, -20],
+    d: [-20, 0],
+    up: [0, 20],
+    left: [20, 0],
+    down: [0, -20],
+    right: [-20, 0],
 };
 
 export default Board;

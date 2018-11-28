@@ -1,11 +1,17 @@
 #viewport {
     position: absolute;
     overflow: hidden;
-    height: 1000px;
+    height: 750px;
     width: 2000px;
 }
 
 #canvas-map {
     position: relative;
-    background-image: url('assets/images/background/Broag_Garden_Entrance_image.jpg');
+    background-image: url('assets/images/background/grass-water.jpg');
+    background-size: 5000px;
+}
+
+#spritesheets {
+    position: absolute;
+    display: none;
 }

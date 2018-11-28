@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const canvasEl = document.getElementsByTagName("canvas")[0];
   canvasEl.width = 5000;
-  canvasEl.height = 5000;
+  canvasEl.height = 4300;
 
   const ctx = canvasEl.getContext("2d");
 
@@ -98,6 +98,21 @@ document.addEventListener("DOMContentLoaded", () => {
       //   ctx.translate(e.x - canvasEl.width)
       // }
     }, false);
+  canvasEl.addEventListener("wheel", function (e) {
+    const dirX = 0;
+    const dirY = e.deltaY*-1;
+    this.offsetX -= dirX;
+    this.offsetY -= dirY;
+
+    let map = document.getElementById("canvas-map");
+    if (map.style.top === "") { map.style.top = 0 };
+    if (parseInt(map.style.top) + dirY < 0 && parseInt(map.style.top) + dirY > map.offsetHeight * -1 + viewport.offsetHeight) {
+      map.style.top = parseInt(map.style.top) + dirY;
+    } else {
+      this.offsetY += dirY;
+    } 
+    board.setOffsets(this.offsetX, this.offsetY); 
+  }, false);
   Object.keys(Board.MOVES).forEach(function(k) {
     key(k, () => { 
       const dirX = Board.MOVES[k][0];
@@ -107,10 +122,19 @@ document.addEventListener("DOMContentLoaded", () => {
       // ctx.save();
 
       let map = document.getElementById("canvas-map");
+      let viewport = document.getElementById("viewport");
       if (map.style.left === "") { map.style.left = 0 };
       if (map.style.top === "") { map.style.top = 0 };
-      map.style.left = parseInt(map.style.left) + dirX;
-      map.style.top = parseInt(map.style.top) + dirY;
+      if (parseInt(map.style.left) + dirX < 0 && parseInt(map.style.left) + dirX > map.offsetWidth * -1 + viewport.offsetWidth) {
+        map.style.left = parseInt(map.style.left) + dirX;
+      } else {
+        this.offsetX += dirX;
+      }
+      if (parseInt(map.style.top) + dirY < 0 && parseInt(map.style.top) + dirY > map.offsetHeight * -1 + viewport.offsetHeight) {
+        map.style.top = parseInt(map.style.top) + dirY;
+      } else {
+        this.offsetY += dirY;
+      }
       
       console.log(map.style.left)
       // ctx.translate(dirX, dirY); 

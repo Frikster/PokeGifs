@@ -11,6 +11,7 @@
     <div id='viewport'>
       <canvas id='canvas-map'></canvas>
     </div>
+    <!-- <br>
     <br>
     <br>
     <br>
@@ -27,15 +28,14 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
+    <br> -->
     <div id='spritesheets'>
 
     </div>
     <!-- <img id="charmander" src="https://sprites.pokecheck.org/i/004.gif" rel:animated_src="https://sprites.pokecheck.org/i/004.gif" /> -->
     <!-- <img id="charmeleon" src="https://sprites.pokecheck.org/i/005.gif" rel:animated_src="https://sprites.pokecheck.org/i/005.gif" />
     <img id="charizard" src="https://sprites.pokecheck.org/i/006.gif" rel:animated_src="https://sprites.pokecheck.org/i/006.gif" /> -->
-    <img id="char" src="https://sprites.pokecheck.org/bw/i/494.gif" rel:animated_src="https://sprites.pokecheck.org/bw/i/494.gif" />
+    <!-- <img id="char" src="https://sprites.pokecheck.org/bw/i/494.gif" rel:animated_src="https://sprites.pokecheck.org/bw/i/494.gif" /> -->
     <script type="text/javascript">
       // debugger
       // let image = new Image();
@@ -46,15 +46,15 @@
      
      
       // let char = new SuperGif({ gif: document.getElementById('char'), auto_play: false });
-      const play = (res) => {
-        char.play();
-        for(let i = 1; i < char.get_length(); i++){
-          let offset = {x: 0, y: i * 62};
-          char.set_frame_offset(i, offset);
-        }
-        char.set_sizes(53, char.get_length()*62);
-        let dataURL = char.get_canvas().toDataURL();
-      }
+      // const play = (res) => {
+      //   char.play();
+      //   for(let i = 1; i < char.get_length(); i++){
+      //     let offset = {x: 0, y: i * 62};
+      //     char.set_frame_offset(i, offset);
+      //   }
+      //   char.set_sizes(53, char.get_length()*62);
+      //   let dataURL = char.get_canvas().toDataURL();
+      // }
       // char.load(play);
 
 
