@@ -2,8 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const fetch = require('node-fetch')
-// const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
-const PORT = 8000;
+const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
 
 app.use(express.static("public"));
 
@@ -43,6 +42,7 @@ app.get('/sprites/:spriteUrl', (request, response) => {
 
   fetch(`${decodeURIComponent(request.params.spriteUrl)}`, { headers: myHeaders}) 
     .then(response => {
+      debugger
       return response.buffer();
     })
     .then(body => {
