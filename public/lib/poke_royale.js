@@ -46,11 +46,15 @@ document.addEventListener("DOMContentLoaded", () => {
     this.x = e.x + canvas.offsetX || e.x;
     this.y = e.y + canvas.offsetY || e.y;
     this.preventDefault = e.preventDefault.bind(e);
+    this.button = e.button;
     // console.log("offsetX " + canvas.offsetX);
     // console.log("offsetY " + canvas.offsetY);
   }
+  canvasEl.drag = false;
 
   canvasEl.addEventListener("mousedown", function(e){
+    this.drag = false;
+    e.preventDefault();
     let wrapper = new EventWrapper(e, this)
     board.handleLeftMouseClick.bind(board)(wrapper);
     this.onmousemove = function (e) {
@@ -100,7 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
   canvasEl.addEventListener('click', function(e){
     let wrapper = new EventWrapper(e, this);
     this.onmousemove = null;
-    board.handleLeftMouseClick.bind(board)(wrapper);},
+    if(!this.drag) {
+      board.handleLeftMouseClick.bind(board)(wrapper);
+    }
+      ;},
     false);
   canvasEl.addEventListener('contextmenu', function(e){
     let wrapper = new EventWrapper(e, this);
@@ -114,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // TODO use 4 rectangles as a border around viewport and mouseover on each
   canvasEl.addEventListener("mousemove", function(e) {
+      this.drag = true;
       if (e.x >= canvasEl.width - 5) {
         this.offsetX += e.x + 5 - canvasEl.width;
         ctx.translate(-(e.x + 5 - canvasEl.width), 0);

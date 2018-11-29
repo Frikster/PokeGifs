@@ -171,6 +171,12 @@ class Board {
     });
   }
 
+  handleDoubleMouseClick(e) {
+    this.playerPokemon.forEach(poke => {
+      poke.selected = false;
+    });
+  }
+
   handleLeftMouseClick(e) {
     this.previousLeftMouseClick = this.cleanClickCoordinates([e.x, e.y]);
     let pokeClicked = false;
@@ -178,6 +184,7 @@ class Board {
       if (this.pokemonClicked(poke, this.cleanClickCoordinates([e.x, e.y]))) {
         this.selectOnePokemon(poke);
         pokeClicked = true;
+        console.log('POKECLICKED')
       }
     });
     this.spawnSidebar.pokemon.forEach(poke => {
@@ -188,13 +195,12 @@ class Board {
         // this.selectorRectangle = null;
       }
     });
-    // TODO: Deselect a group?
-    // if(!pokeClicked) {
-    //   // debugger
-    //   this.playerPokemon.forEach(poke => {
-    //     poke.selected = false;
-    //   });
-    // }
+    // Deselect a group
+    if(!pokeClicked && e.button === 0) {
+      this.playerPokemon.forEach(poke => {
+        poke.selected = false;
+      });
+    }
   }
 
   handleRightMouseClick(e) {
@@ -292,6 +298,11 @@ class Board {
       this.createPokemonFromSidebarPokemon(droppedPoke);
       this.spawnSidebar.resetAll();
     } else {
+      this.playerPokemon.forEach(poke => {
+        if (this.pokemonClicked(poke, this.cleanClickCoordinates([e.x, e.y]))) {
+          this.selectOnePokemon(poke);
+        }
+      });
       this.groupSelect();
       this.selectorRectangle = null;
     }
