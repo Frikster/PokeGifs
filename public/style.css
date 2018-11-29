@@ -10,9 +10,9 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
-    height: 900px;
-    width: 1250px;
-    margin-bottom: 160px;
+    height: 69vh;
+    width: 55vw;
+    margin-bottom: 140px;
 }
 
 #canvas-map {
@@ -29,7 +29,7 @@
 #custom-gif-input {
     /* position: relative; */
     margin: 0 auto;
-    margin-top: 88vh;
+    margin-top: 86vh;
     color:white;
     text-shadow: -2px 0  #396BBA, 0 2px  #396BBA, 2px 0  #396BBA, 0 -2px  #396BBA;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
