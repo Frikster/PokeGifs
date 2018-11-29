@@ -900,6 +900,7 @@ const axios = require("axios");
 
         var get_canvas_scale = function() {
             var scale;
+            if(scale){return scale;}           
             if (options.max_width && hdr && hdr.width > options.max_width) {
                 scale = options.max_width / hdr.width;
             }
@@ -908,6 +909,10 @@ const axios = require("axios");
             }
             return scale;
         }
+
+        // var set_canvas_scale = function(inputScale) { TODO: still needed?
+        //     var scale = inputScale;
+        // }
 
         var canvas, ctx, toolbar, tmpCanvas;
         var initialized = false;
@@ -945,6 +950,7 @@ const axios = require("axios");
             get_auto_play    : function() { return options.auto_play },
             get_length       : function() { return player.length() },
             get_current_frame: function() { return player.current_frame() },
+            set_canvas_scale: function(sc) { return set_canvas_scale(sc)},
             load_url: function(src,callback){
                 if (!load_setup(callback)) return;
 

@@ -12,6 +12,7 @@ class Pokemon {
     this.imgSrc = options.imgSrc;
     this.imgSrcBack = options.imgSrcBack;
     this.imgId = options.imgId;
+    this.scale = parseFloat(options.scale) || 1;
     if (this.imgSrc && !this.spritesheetCanvas && this.imgSrc.slice(this.imgSrc.length - 3, this.imgSrc.length) === 'gif') {
       let img = document.createElement("img");
       img.src = this.imgSrc;
@@ -23,21 +24,33 @@ class Pokemon {
 
       let superGif = new SuperGif({
         gif: document.getElementById(this.imgId),
-        auto_play: false
+        auto_play: false,
       });
+      // superGif.set_canvas_scale(this.scale); // TODO: Scaling
       const play = (res) => {
         superGif.play();
         for (let i = 1; i < superGif.get_length(); i++) {
-          let offset = { x: 0, y: i * superGif.get_canvas().height };
+          let offset = { x: 0, y: i * superGif.get_canvas().height * this.scale };
           superGif.set_frame_offset(i, offset);
         }
-        superGif.set_sizes(superGif.get_canvas().width, superGif.get_length() * superGif.get_canvas().height);
+        superGif.set_sizes(superGif.get_canvas().width * this.scale, superGif.get_length() * superGif.get_canvas().height * this.scale);
         superGif.get_canvas().id = this.imgId;
         this.spritesheetCanvas = superGif.get_canvas();
         this.num_frames = superGif.get_length();
-        this.height = this.spritesheetCanvas.height / this.num_frames;
-        this.width = this.spritesheetCanvas.width;
+        this.height = (this.spritesheetCanvas.height / this.num_frames);
+        this.width = (this.spritesheetCanvas.width);
         this.radius = this.width > this.height ? this.width / 2 : this.height / 2;
+
+        if(this.radius > 250) {
+          alert('Pokemon too big!')
+          return;
+        }
+        console.log(this.radius)
+        if (this.radius < 10) {
+          alert('Pokemon too small!')
+          return;
+        }
+
       }
       superGif.load(play);
 
@@ -52,7 +65,7 @@ class Pokemon {
 
       let superGifBack = new SuperGif({
         gif: document.getElementById(imgBack.id),
-        auto_play: false
+        auto_play: false,
       });
       const playBack = (res) => {
         superGifBack.play();

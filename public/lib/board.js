@@ -240,8 +240,19 @@ class Board {
     if (e.preventDefault) e.preventDefault();
     const front = e.target.front.value;
     let back = e.target.back.value;
+    const scale = e.target.scale.value;
 
     const re = /(?:\.([^.]+))?$/;
+
+    let img = document.createElement("img");
+    img.src = this.front;
+
+    // let dimCheck = setInterval(function () {
+    //   debugger
+    //   if (img.naturalWidth) {
+    //     clearInterval(dimCheck);
+    //   }
+    // }, 10);
 
 
     if (re.exec(front)[1] === 'gif') {
@@ -251,7 +262,8 @@ class Board {
         imgSrcBack: back,
         imgId: Math.random().toString(36).substring(2)
           + (new Date()).getTime().toString(36),
-        pos: [300, 300]
+        pos: [300, 300],
+        scale: scale
       }
       this.createPokemon(options) 
     } else {
