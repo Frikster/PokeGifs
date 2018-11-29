@@ -67,6 +67,36 @@ document.addEventListener("DOMContentLoaded", () => {
     this.onmousemove = null;
     // this.removeEventListener("mousemove", board.handleMouseDownAndMouseMove);
   });
+
+  const makeDoubleClick = function (e) {
+    let clicks = 0,
+      timeout;
+    return function (e) {
+      clicks++;
+      if (clicks == 1) {
+        timeout = setTimeout(function () {
+          single(e);
+          clicks = 0;
+        }, 250);
+      } else {
+        clearTimeout(timeout);
+        double(e);
+        clicks = 0;
+      }
+    };
+  }
+
+  // canvasEl.addEventListener("click", makeDoubleClick(), false);
+  // const single = function (e) {
+  //   let wrapper = new EventWrapper(e, this);
+  //   this.onmousemove = null;
+  //   board.handleLeftMouseClick.bind(board)(wrapper);
+  // }
+  // const double = function (e) {
+  //   board.handleDoubleMouseClick.bind(board)(e);
+  // }
+
+
   canvasEl.addEventListener('click', function(e){
     let wrapper = new EventWrapper(e, this);
     this.onmousemove = null;
