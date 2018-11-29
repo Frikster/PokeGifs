@@ -264,7 +264,7 @@ class Board {
   }
 
   handleDeleteKeyClick(e) {
-    this.playerPokemon.splice(0).forEach(poke => {
+    this.playerPokemon.slice(0).forEach(poke => {
       if (poke.selected) {
         this.playerPokemon.splice(this.playerPokemon.indexOf(poke), 1);
       }
@@ -340,7 +340,7 @@ class Board {
     if (e.preventDefault) e.preventDefault();
     const front = e.target.front.value;
     let back = e.target.back.value;
-    const scale = e.target.scale.value;
+    // const scale = e.target.scale.value;
 
     const re = /(?:\.([^.]+))?$/;
 
@@ -363,7 +363,7 @@ class Board {
         imgId: Math.random().toString(36).substring(2)
           + (new Date()).getTime().toString(36),
         pos: [300, 300],
-        scale: scale
+        // scale: scale
       }
       this.createPokemon(options) 
     } else {
@@ -503,7 +503,7 @@ Board.BG_COLOR = "#28ba32";
 Board.DIM_X = 2000;
 Board.DIM_Y = 1000;
 Board.SPAWN_SIDEBAR_COORDS = [50 , 50];
-Board.FPS = 32;
+// Board.FPS = 32;
 Board.MOVES = {
     w: [0, 20],
     a: [20, 0],
@@ -844,7 +844,7 @@ class Pokemon {
 
       let superGif = new SuperGif({
         gif: document.getElementById(this.imgId),
-        auto_play: false,
+        auto_play: false
       });
       // superGif.set_canvas_scale(this.scale); // TODO: Scaling
       const play = (res) => {
@@ -885,7 +885,7 @@ class Pokemon {
 
       let superGifBack = new SuperGif({
         gif: document.getElementById(imgBack.id),
-        auto_play: false,
+        auto_play: false
       });
       const playBack = (res) => {
         superGifBack.play();
@@ -908,11 +908,76 @@ class Pokemon {
     this.goingRound = false;
   }
 
+  stepGif(ctx) {
+    const flipSpriteHorizontally = function (img, x, y, spriteX, spriteY, spriteW, spriteH) {
+      // move to x + img's width
+      // adding img.width is necessary because we're flipping from
+      //     the right side of the img so after flipping it's still
+      //     at [x,y]
+      ctx.translate(x + spriteW, y);
+
+      // scaleX by -1; this "trick" flips horizontally
+      ctx.scale(-1, 1);
+
+      // draw the img
+      // no need for x,y since we've already translated
+      ctx.drawImage(img,
+        spriteX, spriteY, spriteW, spriteH, 0, 0, spriteW, spriteH
+      );
+
+      // always clean up -- reset transformations to default
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    };
+    if (this.spritesheetCanvas && this.vel[0] <= 0 && this.vel[1] >= 0) {
+      ctx.drawImage(this.spritesheetCanvas, 0, this.currentFrame * this.height, this.width, this.height,
+        this.pos[0] - this.width / 2, this.pos[1] - this.height / 2, this.width, this.height);
+      this.currentFrame = (this.currentFrame + 1) % this.num_frames;
+      console.log(this.currentFrame);
+    } else if (this.spritesheetCanvasBack && this.vel[0] > 0 && this.vel[1] < 0) {
+      ctx.drawImage(this.spritesheetCanvasBack, 0, this.currentFrame * this.height_back, this.width_back, this.height_back,
+        this.pos[0] - this.width_back / 2, this.pos[1] - this.height_back / 2, this.width_back, this.height_back);
+      this.currentFrame = (this.currentFrame + 1) % this.num_frames_back;
+    } else if (this.spritesheetCanvas && this.vel[0] > 0 && this.vel[1] >= 0) {
+      flipSpriteHorizontally(this.spritesheetCanvas, this.pos[0] - this.width / 2, this.pos[1] - this.height / 2,
+        0, this.currentFrame * this.height, this.width, this.height);
+      this.currentFrame = (this.currentFrame + 1) % this.num_frames;
+    } else if (this.spritesheetCanvasBack && this.vel[0] < 0 && this.vel[1] < 0) {
+      flipSpriteHorizontally(this.spritesheetCanvasBack, this.pos[0] - this.width_back / 2, this.pos[1] - this.height_back / 2,
+        0, this.currentFrame * this.height_back, this.width_back, this.height_back);
+      this.currentFrame = (this.currentFrame + 1) % this.num_frames_back;
+    }
+  }
+
+
   draw(ctx) {
     //TODO: delete if not needed
     if (false) { var h, img; } else if (false) {}
 
+    // if (this.selected) {
+    //   ctx.beginPath();
+    //   ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
+    //   ctx.stroke();
+    // }
 
+    // if (!this.intervalStarted && (this.spritesheetCanvas && this.vel[0] <= 0 && this.vel[1]) >= 0 || 
+    //   (this.spritesheetCanvasBack && this.vel[0] > 0 && this.vel[1] < 0) || 
+    //   (this.spritesheetCanvas && this.vel[0] > 0 && this.vel[1] >= 0) || 
+    //   (this.spritesheetCanvasBack && this.vel[0] < 0 && this.vel[1] < 0)) {
+    //   let delay = parseInt(5000 / this.num_frames);
+    //   setInterval(this.stepGif.bind(this), delay, ctx);
+    //   this.intervalStarted = true;
+    // } else {
+    //   let img = new Image();
+    //   img.src = this.imgSrc;
+    //   img.id = this.imgId;
+    //   ctx.drawImage(img, this.pos[0] - this.width / 2, this.pos[1] - this.height / 2);
+    //   img.onload = function (e) {
+    //     this.width = e.target.width;
+    //     this.height = e.target.height;
+    //   }.bind(this)
+    // }
+
+    ///////////////---- THIS SECTION WORKS ------////////////////////////
     const flipSpriteHorizontally = function (img, x, y, spriteX, spriteY, spriteW, spriteH) {
       // move to x + img's width
       // adding img.width is necessary because we're flipping from
@@ -959,12 +1024,15 @@ class Pokemon {
         this.height = e.target.height;
       }.bind(this)
     }
+    
 
     if(this.selected) {
       ctx.beginPath();
       ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
       ctx.stroke();
     }
+    //////////////////////////////////////////////////////////////////
+    
     // ctx.fillStyle = this.color;
     // ctx.fill();
 

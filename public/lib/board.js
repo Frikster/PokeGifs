@@ -164,7 +164,7 @@ class Board {
   }
 
   handleDeleteKeyClick(e) {
-    this.playerPokemon.splice(0).forEach(poke => {
+    this.playerPokemon.slice(0).forEach(poke => {
       if (poke.selected) {
         this.playerPokemon.splice(this.playerPokemon.indexOf(poke), 1);
       }
@@ -240,7 +240,7 @@ class Board {
     if (e.preventDefault) e.preventDefault();
     const front = e.target.front.value;
     let back = e.target.back.value;
-    const scale = e.target.scale.value;
+    // const scale = e.target.scale.value;
 
     const re = /(?:\.([^.]+))?$/;
 
@@ -263,7 +263,7 @@ class Board {
         imgId: Math.random().toString(36).substring(2)
           + (new Date()).getTime().toString(36),
         pos: [300, 300],
-        scale: scale
+        // scale: scale
       }
       this.createPokemon(options) 
     } else {
@@ -403,7 +403,7 @@ Board.BG_COLOR = "#28ba32";
 Board.DIM_X = 2000;
 Board.DIM_Y = 1000;
 Board.SPAWN_SIDEBAR_COORDS = [50 , 50];
-Board.FPS = 32;
+// Board.FPS = 32;
 Board.MOVES = {
     w: [0, 20],
     a: [20, 0],

@@ -753,7 +753,9 @@ const axios = require("axios");
                     stepFrame(1);
                     var delay = frames[i].delay * 10;
                     if (!delay) delay = 100; // FIXME: Should this even default at all? What should it be?
-
+                    // delay = (500000 / frames.length);
+                    // console.log(`DELAY: ${delay}`);
+                    // console.log(`FRAMES: ${frames.length}`);
                     var nextFrameNo = getNextFrameNo();
                     if (nextFrameNo === 0) {
                         delay += loopDelay;
