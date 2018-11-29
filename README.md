@@ -1,3 +1,5 @@
+**This README shows my original idea which has morphed considerably as I got sucked into the problem of creating a general-purpose solution to rendering gifs directly to a canvas - which naturally proved to be far more complicated than I imagined. As such my "game" is more of a framework for creating games.**
+
 # Background and Overview
 Total War: Pokemon (or Company of Pokemon... still working on the name) is a real-time strategy game where circles represent pokemon and their types are represented by the circle colour (primary type) and the circle border colour (secondary type). Players are given a countdown timer with the objective of eliminating all opponent pokemon on the map before the timer runs out. As in the traditional game pokemon type combinations determine whether an attacker recieves a buff or debuff when squaring off against an enemy.
 
