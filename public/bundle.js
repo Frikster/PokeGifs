@@ -1159,8 +1159,8 @@ class SpawnSidebar {
     generateRandomPokemon() {
         const randomIds = []
         for(let i = 0; i < 5; i++){
-            // let pokeId = (Math.floor(Math.random() * 649) + 1).toString();
-            let pokeId = "86";
+            let pokeId = (Math.floor(Math.random() * 649) + 1).toString();
+            // let pokeId = "86";
             randomIds.push(pokeId);
         }
 
