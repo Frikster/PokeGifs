@@ -259,28 +259,49 @@ class Board {
     return selectedPokes;
   }
 
-  handleLeftMouseClick(e) {
-    this.previousLeftMouseClick = [e.x, e.y];
-    this.playerPokemon.forEach(poke => {
-      if (this.pokemonClicked(poke, [e.x, e.y])) {
-        this.selectOnePokemon(poke);
-      }
-    });
-    this.spawnSidebar.pokemon.forEach(poke => {
-      if (this.pokemonClicked(poke, [e.x, e.y])) {
-        // poke.isDragging = true;
-        this.dragOnePokemon(poke);
-        // this.selectorRectangle = null;
+  cleanClickCoordinates(coords) {
+    return [coords[0] - document.getElementById("viewport").getBoundingClientRect().x, coords[1] - document.getElementById("viewport").getBoundingClientRect().y];
+  }
+
+  handleDeleteKeyClick(e) {
+    this.playerPokemon.splice(0).forEach(poke => {
+      if (poke.selected) {
+        this.playerPokemon.splice(this.playerPokemon.indexOf(poke), 1);
       }
     });
   }
 
+  handleLeftMouseClick(e) {
+    this.previousLeftMouseClick = this.cleanClickCoordinates([e.x, e.y]);
+    let pokeClicked = false;
+    this.playerPokemon.forEach(poke => {
+      if (this.pokemonClicked(poke, this.cleanClickCoordinates([e.x, e.y]))) {
+        this.selectOnePokemon(poke);
+        pokeClicked = true;
+      }
+    });
+    this.spawnSidebar.pokemon.forEach(poke => {
+      if (this.pokemonClicked(poke, this.cleanClickCoordinates([e.x, e.y]))) {
+        // poke.isDragging = true;
+        this.dragOnePokemon(poke);
+        pokeClicked = true;
+        // this.selectorRectangle = null;
+      }
+    });
+    // TODO: Deselect a group?
+    // if(!pokeClicked) {
+    //   // debugger
+    //   this.playerPokemon.forEach(poke => {
+    //     poke.selected = false;
+    //   });
+    // }
+  }
+
   handleRightMouseClick(e) {
-    // debugger
     e.preventDefault();
     let didDeselect = false;
     this.playerPokemon.forEach(poke => {
-      if (this.pokemonClicked(poke, [e.x, e.y])) {
+      if (this.pokemonClicked(poke, this.cleanClickCoordinates([e.x, e.y]))) {
         poke.selected = false;
         didDeselect = true;
       }
@@ -288,7 +309,7 @@ class Board {
     if (!didDeselect) {
       this.playerPokemon.forEach(poke => {
         if (poke.selected) {
-          poke.setMotionAndDestination([e.x, e.y]);
+          poke.setMotionAndDestination(this.cleanClickCoordinates([e.x, e.y]));
         }
       });
     }
@@ -299,30 +320,37 @@ class Board {
       if (!this.selectorRectangle) {
         this.selectorRectangle = new _ui__WEBPACK_IMPORTED_MODULE_1__["SelectorRectangle"](
           this.previousLeftMouseClick,
-          [e.x, e.y]
+          this.cleanClickCoordinates([e.x, e.y])
         );
       } else {
-        // console.log([e.x, e.y]);
-        this.selectorRectangle.updateRect([e.x, e.y]);
+        this.selectorRectangle.updateRect(this.cleanClickCoordinates([e.x, e.y]));
       }
     } else {
-      this.spawnSidebar.updateDraggedPoke([e.x, e.y]);
+      this.spawnSidebar.updateDraggedPoke(this.cleanClickCoordinates([e.x, e.y]));
     }
   }
 
   handleCustomPokemonSubmit(e) {
     if (e.preventDefault) e.preventDefault();
     const front = e.target.front.value;
-    const back = e.target.back.value;
+    let back = e.target.back.value;
 
-    let options = {
-      imgSrc: front,
-      imgSrcBack: back,
-      imgId: Math.random().toString(36).substring(2)
-        + (new Date()).getTime().toString(36),
-      pos: [300, 300]
+    const re = /(?:\.([^.]+))?$/;
+
+
+    if (re.exec(front)[1] === 'gif') {
+      if (re.exec(back)[1] != "gif") { back = front;}
+      let options = {
+        imgSrc: front,
+        imgSrcBack: back,
+        imgId: Math.random().toString(36).substring(2)
+          + (new Date()).getTime().toString(36),
+        pos: [300, 300]
+      }
+      this.createPokemon(options) 
+    } else {
+      alert("Front URL must end with '.gif'");
     }
-    this.createPokemon(options) 
     return false;
   }
 
@@ -686,7 +714,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.offsetX -= dirX;
       this.offsetY -= dirY;
       // ctx.save();
-
+      //TODO: map and this are the same...
       let map = document.getElementById("canvas-map");
       let viewport = document.getElementById("viewport");
       if (map.style.left === "") { map.style.left = 0 };
@@ -701,14 +729,14 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         this.offsetY += dirY;
       }
-      
       console.log(map.style.left)
       // ctx.translate(dirX, dirY); 
       board.setOffsets(this.offsetX, this.offsetY);
     });
   }, canvasEl);
-
-
+  key('del', function(){
+    board.handleDeleteKeyClick();
+  }.bind(canvasEl));
   
 
   window.ctx = ctx;
@@ -858,10 +886,11 @@ class Pokemon {
       }.bind(this)
     }
 
-
-    ctx.beginPath();
-    ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
-    ctx.stroke();
+    if(this.selected) {
+      ctx.beginPath();
+      ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true);
+      ctx.stroke();
+    }
     // ctx.fillStyle = this.color;
     // ctx.fill();
 
@@ -1112,6 +1141,7 @@ class SidebarPokemon extends _pokemon__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.offsets = [0,0];
     this.starting_pos = options.pos.slice(0);
     this.isDragging = false;
+    this.selected = true;
   }
 
   translationOffset(offsetX, offsetY) {

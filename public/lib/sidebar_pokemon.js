@@ -10,6 +10,7 @@ class SidebarPokemon extends Pokemon {
     this.offsets = [0,0];
     this.starting_pos = options.pos.slice(0);
     this.isDragging = false;
+    this.selected = true;
   }
 
   translationOffset(offsetX, offsetY) {

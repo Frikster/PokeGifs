@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.offsetX -= dirX;
       this.offsetY -= dirY;
       // ctx.save();
-
+      //TODO: map and this are the same...
       let map = document.getElementById("canvas-map");
       let viewport = document.getElementById("viewport");
       if (map.style.left === "") { map.style.left = 0 };
@@ -141,14 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         this.offsetY += dirY;
       }
-      
       console.log(map.style.left)
       // ctx.translate(dirX, dirY); 
       board.setOffsets(this.offsetX, this.offsetY);
     });
   }, canvasEl);
-
-
+  key('del', function(){
+    board.handleDeleteKeyClick();
+  }.bind(canvasEl));
   
 
   window.ctx = ctx;
