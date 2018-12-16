@@ -26,6 +26,8 @@ import * as UI from "./ui"
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  document.body.style.zoom = 1.0;
+
   const canvasEl = document.getElementsByTagName("canvas")[0];
   canvasEl.width = 5000;
   canvasEl.height = 4300;
