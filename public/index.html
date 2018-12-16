@@ -8,11 +8,54 @@
   </head>
 
   <body>
+    <!-- <div>
+      <p>
+        dsfffffffffffffffffffffffffffdfg
+
+      </p>
+    </div> -->
+
     <div class='game-div'>
       <div>
         <img src="./assets/images/PokeRoyaleTitle.png" id='game-title'>
       </div>
-      
+
+      <div class="instructions-and-info">
+        <div class="instructions">
+          <h2>Instructions</h2>
+          <ul>
+            <li>Use the arrow keys, w,a,s,d or the scroll on a laptop touchpad to move around the map</li>
+            <li>Drag a Pokemon and drop it onto the map. Wait for it to spawn</li>
+            <li>Left-click to select a Pokemon</li>
+            <li>Left-click and drag to make a box to select a group of Pokemon</li>
+            <li>Left-click the map to deselect</li>
+            <li>Right-click to order selected Pokemon to move</li>
+            <li>Press the delete key to remove selected Pokemon</li>
+            <li>Find a gif you like on the internet representing yourself and <br> add the url below</li>
+            <li>Navigate to the top-left of the map to find the gif you added</li>
+            <li>Enjoy seeing an animated version of yourself among your favourite Pokemon</li>
+          </ul>
+          
+        </div>
+
+        <div class="info">
+          <!-- <div class='github-icon'></div> -->
+          <h2>Info</h2>
+            <br>
+            The normal way to get a sprite to animate on a HTML5 Canvas is to manually create a spritesheet and then run your frames from there.
+            This is fine for small-scale projects but I wasn't overly keen on doing this manually for 1000+ Pokemon...
+            Gifs for each Pokemon are easily obtainable. Why cant I just use gifs directly on my canvas? 
+            If I can get it to work so that a gif is served from any arbitrary gif on the internet then people can also create their own Pokemon!
+            Turns out HTML5 Canvas does not support gifs at all.
+            And so what started as a cute little Pokemon game became many all-nighters learning how to parse gifs from raw binary streams.
+            The end result is here a framework that anyone can use to get their own project off the ground with gifs served to a canvas.
+            And as far as I know this is the first such framework to exist! Enjoy!
+
+            Oh! Also as an added bonus the sprites have collision detection. Try making them collide!
+          <i class="fab fa-github"></i>
+        </div>
+      </div>
+
       <div id='viewport'>
         <canvas id='canvas-map'></canvas>
       </div>
