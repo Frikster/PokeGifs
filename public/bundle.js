@@ -637,7 +637,9 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  document.body.style.zoom = 1.0;
+  if (window.outerWidth / window.innerWidth < 0.89 || window.outerWidth / window.innerWidth > 0.91) {
+    alert("Please modify browser zoom to 90%")
+  }
 
   const canvasEl = document.getElementsByTagName("canvas")[0];
   canvasEl.width = 5000;

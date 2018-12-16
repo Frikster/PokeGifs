@@ -1,3 +1,10 @@
+/* html {
+    zoom: 0.95;
+    -moz-transform: scale(0.95);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.95);
+} */
+
 .game-div {
     /* display: flex; */
     width: 100%;
