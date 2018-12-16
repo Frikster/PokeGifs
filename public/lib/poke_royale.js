@@ -27,7 +27,7 @@ import * as UI from "./ui"
 document.addEventListener("DOMContentLoaded", () => {
 
   if (window.outerWidth / window.innerWidth < 0.89 || window.outerWidth / window.innerWidth > 0.91) {
-    alert("Please modify browser zoom to 90%")
+    alert("App only supported on Chrome. Please modify browser zoom to 90%.")
   }
 
   const canvasEl = document.getElementsByTagName("canvas")[0];
