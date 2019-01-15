@@ -15,7 +15,7 @@ The normal way to get a sprite to animate on a [HTML5 Canvas](https://www.w3scho
 
 This is what this project has thus accomplished. Moreover, gifs are not stored locally (a good idea if you have 1000+ gifs to handle) but are fetched from a third-party API. This works because although the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) fetch request might be blocked by the site's [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) we are reading the raw binary stream from the gif on the external site rather than referencing the gif or downloading the gif to use on our site. Naturally this will thus work for any gif from any site, not just Pokemon gifs. And this is why you can enter any gif URL in the application and see your own gif playing with Pokemon.
 
-In conclusion, what started as a game is now more of a framework for creating games (with collision detection for sprites thrown in as a bonus as I had already implemented that) - a framework that anyone can use to get their own project off the ground with their own gifs served directly to a canvas via automatic spritesheet generation. 
+In conclusion, what started as a game is now more of a framework for creating games (with collision detection for sprites thrown in as a bonus as I had already implemented that when I thought I was creating a game) - a framework that anyone can use to get their own project off the ground with their own gifs served directly to a canvas via automatic spritesheet generation. 
 
  And as far as I know this is the first such framework to exist.
 
