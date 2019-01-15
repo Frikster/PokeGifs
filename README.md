@@ -1,9 +1,33 @@
-**This README shows my original idea which has morphed considerably as I got sucked into the problem of creating a general-purpose solution to rendering gifs directly to a canvas - which naturally proved to be far more complicated than I imagined. As such my "game" is more of a framework for creating games. Here is the [Live Site](https://pokeroyale.herokuapp.com/)**
-
 ![](public/assets/images/PokeRoyaleShowcase.gif)
 
+[Live Site](https://pokeroyale.herokuapp.com/)
+
 # Background and Overview
-Total War: Pokemon (or Company of Pokemon... still working on the name... I'll probably call it PokeDots) is a real-time strategy game where circles represent pokemon and their types are represented by the circle colour (primary type) and the circle border colour (secondary type). Players are given a countdown timer with the objective of eliminating all opponent pokemon on the map before the timer runs out. As in the traditional game pokemon type combinations determine whether an attacker recieves a buff or debuff when squaring off against an enemy.
+PokeGifs was initially envisioned as a real-time strategy game where circles represent pokemon and their types are represented by the circle colour (primary type) and the circle border colour (secondary type). Players are given a countdown timer with the objective of eliminating all opponent pokemon on the map before the timer runs out. As in the traditional game pokemon type combinations determine whether an attacker recieves a buff or debuff when squaring off against an enemy.
+
+This game was meant to work with simply canvas elements, however I was dissatisfied with the lack of actual Pokemon [sprites](https://en.wikipedia.org/wiki/Sprite_(computer_graphics)). 
+
+The normal way to get a sprite to animate on a [HTML5 Canvas](https://www.w3schools.com/html/html5_canvas.asp) is to manually create a [spritesheet](https://www.codeandweb.com/what-is-a-sprite-sheet) and then run your frames from this image files to create an animated sprite. This is fine for small-scale projects but is tedious when you have multiple sprites all of differing dimensions (like, for instance, 1000+ Pokemon). Sprite gifs for each Pokemon are easily obtainable. The thought thus arose to simply use the gifs directly. Sadly, HTML5 Canvas does not support gifs at all. One way around this would be to render the gifs in seperate img tags and then to overlay them on top of the canvas using CSS to control how they behave (i.e. [CSS sprites](https://css-tricks.com/css-sprites/)). This has the downside of your sprites not being integrated with the canvas meaning any functionality you have written for your canvas will need an additional layer of logic to find the sprites as they are not in fact rendered to the canvas (they only appear on the canvas). The only other solution to seems to be to:
+
+1. Load a String with a gif's raw data stream
+2. Parse the stream to a _seperate hidden_ canvas using [libgif-js](https://github.com/buzzfeed/libgif-js) using custom callbacks to handle proper handling of frame location on the new canvas, frame dimensions, number of frames etc.
+3. This hidden canvas is now a spritesheet that has been generated on-the-fly where each frame can be referenced from the original canvas to animate the sprite to the canvas
+
+This is what this project has thus accomplished. Moreover, gifs are not stored locally (a good idea if you have 1000+ gifs to handle) but are fetched from a third-party API. This works because although the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) fetch request might be blocked by the site's [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) we are reading the raw binary stream from the gif on the external site rather than referencing the gif or downloading the gif to use on our site. Naturally this will thus work for any gif from any site, not just Pokemon gifs. And this is why you can enter any gif URL in the application and see your own gif playing with Pokemon.
+
+In conclusion, what started as a game is now more of a framework for creating games - a framework that anyone can use to get their own project off the ground with their own gifs served directly to a canvas via automatic spritesheet generation. 
+
+ And as far as I know this is the first such framework to exist.
+
+ # Instructions
+ 
+ - Gif showing navigating around the map
+ - Gif showing moving pokemon to map
+ - Gif showing moving pokemon around
+ - Gif showing adding your own custom gif
+
+
+**The rest of this README shows my original idea which has morphed considerably as I got sucked into the problem of creating a general-purpose solution to rendering gifs directly to a canvas - which naturally proved to be far more complicated than I imagined. As such my "game" is more of a framework for creating games.
 
 # Functionality and MVP
 The player will be able to:
@@ -81,14 +105,14 @@ This app will consist of a single screen with the battlefield canvas, pause cont
 ## Day 5:
 - [ ] Create game pause function and instructions
 - [ ] Add pokemon music
-- [ ] Have a styled Canvas, nice looking controls and title
+- [x] Have a styled Canvas, nice looking controls and title
 Over the weekend:
 
-- [ ] Test the project for bugs
-- [ ] Deploy the project on GitHub Pages
+- [x] Test the project for bugs
+- [x] Deploy the project on GitHub Pages
 
 # Bonus features
-- [ ] Animated Pokemon sprites for each pokemon!
+- [x] Animated Pokemon sprites for each pokemon! **<-- This ended up being the rest of the project**
 - [ ] Canonical pokemon stats used to calculate pokemon attributes retrieved from PokeAPI
 - [ ] Random dropped items that pokemon can pick up for additional buffs (i.e. known as "pokemon held items" in the traditional game)
 - [ ] Ability for pokemon to switch out an item they are holding (which is dropped) for another
