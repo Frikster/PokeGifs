@@ -1,6 +1,6 @@
 ![](public/assets/images/PokeRoyaleShowcase.gif)
 
-[Live Site](https://pokeroyale.herokuapp.com/)
+Check out the [Live Site](https://pokeroyale.herokuapp.com/)!
 
 # Background and Overview
 PokeGifs was initially envisioned as a real-time strategy game where circles represent pokemon and their types are represented by the circle colour (primary type) and the circle border colour (secondary type). Players are given a countdown timer with the objective of eliminating all opponent pokemon on the map before the timer runs out. As in the traditional game pokemon type combinations determine whether an attacker recieves a buff or debuff when squaring off against an enemy.
