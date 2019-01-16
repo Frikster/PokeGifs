@@ -40,8 +40,8 @@ In conclusion, what started as a game is now more of a framework for creating ga
 ### Press the delete key to remove selected Pokemon
  
  
-### Find a gif you like on the internet. This gif should ideally have a transparent background and must not be too large.
- - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers)
+### Submit a gif. This gif should ideally have a transparent background and must not be too large.
+ - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers) for ideal candidates
      
 ### Enjoy moving your gif around your favourite Pokemon
  
