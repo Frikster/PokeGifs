@@ -41,10 +41,10 @@ In conclusion, what started as a game is now more of a framework for creating ga
  
 ### Submit a gif. This gif should ideally have a transparent background and must not be too large.
  - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers) for ideal candidates
+### Enjoy moving your gif around your favourite Pokemon
 
  ![](public/assets/images/showcase/PokeGifShowcase.gif)
 
-### Enjoy moving your gif around your favourite Pokemon
  
 
 **The rest of this README shows my original idea which has morphed considerably as I got sucked into the problem of creating a general-purpose solution to rendering gifs directly to a canvas - which naturally proved to be far more complicated than I imagined. As such my "game" is more of a framework for creating games.**
