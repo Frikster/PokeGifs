@@ -1,4 +1,4 @@
-![](public/assets/images/PokeRoyaleShowcase.gif)
+![Header](https://i0.wp.com/cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2016/05/Slack-796x398.jpg?ssl=1)
 
 Check out the [Live Site](https://pokeroyale.herokuapp.com/)!
 
@@ -20,6 +20,29 @@ In conclusion, what started as a game is now more of a framework for creating ga
  And as far as I know this is the first such framework to exist.
 
  # Instructions
+ 
+ ![](public/assets/images/showcase/Movement.gif)
+
+- Use the arrow keys, w,a,s,d or the scroll on a laptop touchpad to move around the map
+ 
+ ![](public/assets/images/showcase/DragAndDrop.gif)
+ 
+ - Drag Pokemon and drop them onto the map. Wait for them to animate. 
+ 
+ - Left-click to select a Pokemon.
+ - Left-click and drag to make a box to select a group of Pokemon.
+ - Left-click the map to deselect
+ - Right-click to order selected Pokemon to move
+ 
+ 
+ - Press the delete key to remove selected Pokemon
+ 
+ 
+ - Find a gif you like on the internet. This gif should ideally have a transparent background and must not be too large.
+     - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers)
+ - Enjoy seeing your gif among your favourite Pokemon
+ 
+
  
  - Gif showing navigating around the map
  - Gif showing moving pokemon to map
