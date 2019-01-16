@@ -362,7 +362,7 @@ class Board {
         imgSrcBack: back,
         imgId: Math.random().toString(36).substring(2)
           + (new Date()).getTime().toString(36),
-        pos: [300, 300],
+        pos: [this.offsetX + 835, this.offsetY + 650],
         // scale: scale
       }
       this.createPokemon(options) 
