@@ -22,13 +22,15 @@ In conclusion, what started as a game is now more of a framework for creating ga
 
  # Instructions
  
- ![](public/assets/images/showcase/Movement.gif)
 
 - Use the arrow keys, w,a,s,d or the scroll on a laptop touchpad to move around the map
  
- ![](public/assets/images/showcase/DragAndDrop.gif)
+  ![](public/assets/images/showcase/DragAndDrop.gif)
  
  - Drag Pokemon and drop them onto the map. Wait for them to animate. 
+ 
+  ![](public/assets/images/showcase/Movement.gif)
+
  
  - Left-click to select a Pokemon.
  - Left-click and drag to make a box to select a group of Pokemon.
