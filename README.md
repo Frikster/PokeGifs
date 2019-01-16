@@ -1,4 +1,4 @@
-![Header](public/assets/images/PokeGifsTitle.png)
+![Header](public/assets/images/showcase/PokeGifShowcase.gif)
 
 ### Check out the [Live Site](https://pokeroyale.herokuapp.com/)!
 
@@ -24,31 +24,28 @@ In conclusion, what started as a game is now more of a framework for creating ga
  
 ### Use the arrow keys, w,a,s,d or the scroll on a laptop touchpad to move around the map
  
-  ![](public/assets/images/showcase/DragAndDrop.gif)
+  ![](public/assets/images/showcase/MapMovement.gif)
  
 ### Drag Pokemon and drop them onto the map. Wait for them to animate. 
  
-  ![](public/assets/images/showcase/Movement.gif)
-
+  ![](public/assets/images/showcase/DragAndDrop.gif)
  
 ### Left-click to select a Pokemon.
 ### Left-click and drag to make a box to select a group of Pokemon.
 ### Left-click the map to deselect
 ### Right-click to order selected Pokemon to move
- 
- 
 ### Press the delete key to remove selected Pokemon
+ 
+   ![](public/assets/images/showcase/PokeMovement.gif)
  
  
 ### Submit a gif. This gif should ideally have a transparent background and must not be too large.
  - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers) for ideal candidates
-     
+
+ ![](public/assets/images/showcase/PokeGifShowcase.gif)
+
 ### Enjoy moving your gif around your favourite Pokemon
  
-
- - Gif showing moving pokemon around
- - Gif showing adding your own custom gif
-
 
 **The rest of this README shows my original idea which has morphed considerably as I got sucked into the problem of creating a general-purpose solution to rendering gifs directly to a canvas - which naturally proved to be far more complicated than I imagined. As such my "game" is more of a framework for creating games.**
 
