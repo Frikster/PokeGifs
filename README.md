@@ -3,6 +3,9 @@
 Check out the [Live Site](https://pokeroyale.herokuapp.com/)!
 
 # Background and Overview
+
+#### A Pokemon-themed framework showcasing how gifs can be parsed into spritesheets for use in character animation.
+
 PokeGifs was initially envisioned as a real-time strategy game where circles represent pokemon and their types are represented by the circle colour (primary type) and the circle border colour (secondary type). Players are given a countdown timer with the objective of eliminating all opponent pokemon on the map before the timer runs out. As in the traditional game pokemon type combinations would determine whether an attacker recieves a buff or debuff when squaring off against an enemy. This game was meant to work solely with simple canvas graphics, however I became curious as to how difficult adding proper Pokemon [sprites](https://en.wikipedia.org/wiki/Sprite_(computer_graphics)) would be.
 
 The normal way to get a sprite to animate on a [HTML5 Canvas](https://www.w3schools.com/html/html5_canvas.asp) is to manually create a [spritesheet](https://www.codeandweb.com/what-is-a-sprite-sheet) and then run your frames from this image files to create an animated sprite. This is fine for small-scale projects but is tedious when you have multiple sprites all of differing dimensions (like, for instance, 1000+ Pokemon). Sprite gifs for each Pokemon are easily obtainable. The thought thus arose to simply use the gifs directly. Sadly, HTML5 Canvas does not support gifs at all. One way around this would be to render the gifs in seperate img tags and then to overlay them on top of the canvas using CSS to control how they behave (i.e. [CSS sprites](https://css-tricks.com/css-sprites/)). This has the downside of your sprites not being integrated with the canvas meaning any functionality you have written for your canvas will need an additional layer of logic to find the sprites as they are not in fact rendered to the canvas (they only appear on the canvas). The only other solution to seems to be to:
@@ -38,12 +41,9 @@ In conclusion, what started as a game is now more of a framework for creating ga
  
  - Find a gif you like on the internet. This gif should ideally have a transparent background and must not be too large.
      - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers)
- - Enjoy seeing your gif among your favourite Pokemon
+ - Enjoy moving your gif around your favourite Pokemon
  
 
- 
- - Gif showing navigating around the map
- - Gif showing moving pokemon to map
  - Gif showing moving pokemon around
  - Gif showing adding your own custom gif
 
