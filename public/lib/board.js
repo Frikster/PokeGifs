@@ -230,6 +230,7 @@ class Board {
         );
       } else {
         this.selectorRectangle.updateRect(this.cleanClickCoordinates([e.x, e.y]));
+        print(this.selectorRectangle)
       }
     } else {
       this.spawnSidebar.updateDraggedPoke(this.cleanClickCoordinates([e.x, e.y]));
