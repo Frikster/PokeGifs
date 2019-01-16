@@ -1,4 +1,4 @@
-![Header](public/assets/images/PokeGifsTitle.png)
+![Header](public/assets/images/PokeRoyaleShowcase.gif)
 
 ### Check out the [Live Site](https://pokeroyale.herokuapp.com/)!
 
