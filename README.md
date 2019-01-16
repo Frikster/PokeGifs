@@ -1,6 +1,6 @@
 ![Header](public/assets/images/PokeGifsTitle.png)
 
-Check out the [Live Site](https://pokeroyale.herokuapp.com/)!
+### Check out the [Live Site](https://pokeroyale.herokuapp.com/)!
 
 # Background and Overview
 
@@ -22,28 +22,28 @@ In conclusion, what started as a game is now more of a framework for creating ga
 
  # Instructions
  
-
-- Use the arrow keys, w,a,s,d or the scroll on a laptop touchpad to move around the map
+### Use the arrow keys, w,a,s,d or the scroll on a laptop touchpad to move around the map
  
   ![](public/assets/images/showcase/DragAndDrop.gif)
  
- - Drag Pokemon and drop them onto the map. Wait for them to animate. 
+### Drag Pokemon and drop them onto the map. Wait for them to animate. 
  
   ![](public/assets/images/showcase/Movement.gif)
 
  
- - Left-click to select a Pokemon.
- - Left-click and drag to make a box to select a group of Pokemon.
- - Left-click the map to deselect
- - Right-click to order selected Pokemon to move
+### Left-click to select a Pokemon.
+### Left-click and drag to make a box to select a group of Pokemon.
+### Left-click the map to deselect
+### Right-click to order selected Pokemon to move
  
  
- - Press the delete key to remove selected Pokemon
+### Press the delete key to remove selected Pokemon
  
  
- - Find a gif you like on the internet. This gif should ideally have a transparent background and must not be too large.
-     - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers)
- - Enjoy moving your gif around your favourite Pokemon
+### Find a gif you like on the internet. This gif should ideally have a transparent background and must not be too large.
+ - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers)
+     
+### Enjoy moving your gif around your favourite Pokemon
  
 
  - Gif showing moving pokemon around
