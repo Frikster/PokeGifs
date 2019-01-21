@@ -4,7 +4,7 @@
 
 # Background and Overview
 
-#### A Pokemon-themed framework showcasing how gifs can be parsed into spritesheets for use in character animation.
+#### A Pokemon-themed framework showcasing how gifs can be rendered to HTML5 Canvas despite gifs "officially" being unsupported
 
 PokeGifs was initially envisioned as a real-time strategy game where circles represent pokemon and their types are represented by the circle colour (primary type) and the circle border colour (secondary type). Players are given a countdown timer with the objective of eliminating all opponent pokemon on the map before the timer runs out. As in the traditional game pokemon type combinations would determine whether an attacker recieves a buff or debuff when squaring off against an enemy. This game was meant to work solely with simple canvas graphics, however I became curious as to how difficult adding proper Pokemon [sprites](https://en.wikipedia.org/wiki/Sprite_(computer_graphics)) would be.
 
@@ -41,10 +41,10 @@ In conclusion, what started as a game is now more of a framework for creating ga
  
 ### Submit a gif. This gif should ideally have a transparent background and must not be too large.
  - Tip: check out the ["sticker" section on Giphy](https://giphy.com/stickers) for ideal candidates
+### Enjoy moving your gif around your favourite Pokemon
 
  ![](public/assets/images/showcase/PokeGifShowcase.gif)
 
-### Enjoy moving your gif around your favourite Pokemon
  
 
 **The rest of this README shows my original idea which has morphed considerably as I got sucked into the problem of creating a general-purpose solution to rendering gifs directly to a canvas - which naturally proved to be far more complicated than I imagined. As such my "game" is more of a framework for creating games.**
