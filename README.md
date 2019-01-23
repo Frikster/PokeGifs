@@ -1,6 +1,6 @@
 ![Header](public/assets/images/showcase/Screenshot.png)
 
-![Header](public/assets/images/showcase/PokeGif.gif)
+![Header](public/assets/images/showcase/PokeGif_opt.gif)
 
 ### Check out the [Live Site](https://pokeroyale.herokuapp.com/)!
 
