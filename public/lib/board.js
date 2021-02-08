@@ -230,7 +230,6 @@ class Board {
         );
       } else {
         this.selectorRectangle.updateRect(this.cleanClickCoordinates([e.x, e.y]));
-        print(this.selectorRectangle)
       }
     } else {
       this.spawnSidebar.updateDraggedPoke(this.cleanClickCoordinates([e.x, e.y]));
@@ -296,8 +295,8 @@ class Board {
     //   });
     let newPoke = new PlayerPokemon({
       pos: droppedPoke.pos,
-      imgSrc: `https://sprites.pokecheck.org/i/${droppedPoke.imgId}.gif`,
-      imgSrcBack: `https://sprites.pokecheck.org/b/${droppedPoke.imgId}.gif`,
+      imgSrc: `https://play.pokemonshowdown.com/sprites/ani/${droppedPoke.imgId}.gif`,
+      imgSrcBack: `https://play.pokemonshowdown.com/sprites/ani-back/${droppedPoke.imgId}.gif`,
       imgId: droppedPoke.imgId
     });
     // debugger

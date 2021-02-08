@@ -7,19 +7,18 @@
     "lib": "lib"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-core": "^6.26.3",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "fetch-headers": "^2.0.0",
     "file-system": "^2.2.2",
-    "fs": "0.0.1-security",
-    "gif-frames": "^1.0.0",
-    "node-fetch": "^2.3.0",
-    "nodemon": "^1.18.6",
+    "gif-frames": "^1.0.1",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
     "path": "^0.12.7",
     "select-random-file": "^1.1.0",
-    "webpack": "^4.19.1",
-    "webpack-cli": "^3.1.1"
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
   },
   "devDependencies": {},
   "scripts": {

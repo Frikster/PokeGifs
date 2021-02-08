@@ -1,4 +1,5 @@
 import SidebarPokemon from './sidebar_pokemon'
+import POKEMON_NAMES from '../assets/pokemon_names';
 const Util = require("./util");
 
 class SpawnSidebar {
@@ -19,15 +20,12 @@ class SpawnSidebar {
     generateRandomPokemon() {
         const randomIds = []
         for(let i = 0; i < 5; i++){
-            let pokeId = (Math.floor(Math.random() * 649) + 1).toString();
-            // let pokeId = "86";
-            randomIds.push(pokeId);
+            randomIds.push(POKEMON_NAMES.split(',')[Math.floor(Math.random() * 897)]);
         }
-
         for (let i = 0; i < SpawnSidebar.NUM_POKEMON; i++) {
             let newPoke = new SidebarPokemon({
                 pos: [this.pokeX, this.firstPokeYPosition + (i * this.ySpacing)],
-                imgSrc: `https://sprites.pokecheck.org/icon/${randomIds[i]}.png`,
+                imgSrc: `https://play.pokemonshowdown.com/sprites/dex/${randomIds[i]}.png`,
                 imgId: randomIds[i]
             });
             newPoke.translationOffset(this.offsets[0], this.offsets[1]);
